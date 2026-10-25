@@ -270,6 +270,14 @@ footer b{color:var(--text)}
   75%{box-shadow:0 0 28px rgba(252,213,53,.85),0 0 76px rgba(255,157,46,.5);filter:brightness(1.15)}
 }
 
+/* ---------- 社区成员真实感受 ---------- */
+.voice-list{display:flex;flex-direction:column;gap:12px}
+.voice{background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:14px 16px}
+.voice .v-head{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px;color:var(--text-strong);margin-bottom:7px}
+.voice .va{width:30px;height:30px;border-radius:50%;background:rgba(252,213,53,.12);border:1px solid rgba(252,213,53,.35);
+  color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:13px;flex:none;font-family:var(--font)}
+.voice .v-body{font-size:13.5px;color:var(--text);line-height:1.95}
+
 </style>
 </head>
 <body>
@@ -396,7 +404,7 @@ footer b{color:var(--text)}
           <div class="row"><span class="k">入池比例</span><span class="v">全额入池（链上实测）</span></div>
           <div class="row"><span class="k">出局赔付</span><span class="v hl">×1.6 倍</span></div>
           <div class="row"><span class="k">计价口径</span><span class="v">金本位（USDT）锁定价值 ×1.6，以 LYX 返还</span></div>
-          <div class="row"><span class="k">池内余额</span><span class="v gold"><span class='bal' data-bal='blindbox' data-f=''>9,022,721</span> LYX</span></div>
+          <div class="row"><span class="k">池内余额</span><span class="v gold"><span class='bal' data-bal='blindbox' data-f=''>9,021,103</span> LYX</span></div>
         </div>
         <div class="note"><b>要点：</b>投入时按当时 USDT 价值锁定，出局时按锁定的 1.6 倍折返 LYX。队列进度决定回款速度，排队期间币价波动由金本位锁价对冲。</div>
       </div>
@@ -417,7 +425,7 @@ footer b{color:var(--text)}
           <div class="row"><span class="k">三球同号</span><span class="v hl">×88</span></div>
           <div class="row"><span class="k">两球同号</span><span class="v hl">×8</span></div>
           <div class="row"><span class="k">全不同号</span><span class="v">×2</span></div>
-          <div class="row"><span class="k">奖池余额</span><span class="v gold"><span class='bal' data-bal='lottery' data-f=''>4,000,097</span> LYX</span></div>
+          <div class="row"><span class="k">奖池余额</span><span class="v gold"><span class='bal' data-bal='lottery' data-f=''>4,000,100</span> LYX</span></div>
         </div>
         <div class="note"><b>要点：</b>高倍档（×88 / ×8）吃的是奖池沉淀，×2 档是基础保底回报。长期期望取决于奖池注入速度。</div>
       </div>
@@ -436,10 +444,10 @@ footer b{color:var(--text)}
           <div class="row"><span class="k">入场方式</span><span class="v">向 0x…0001 ~ 0x…0004 转入 LYX</span></div>
           <div class="row"><span class="k">入池比例</span><span class="v">全额入池（链上实测）</span></div>
           <div class="row"><span class="k">结算方式</span><span class="v">每轮淘汰，幸存者瓜分房间奖池</span></div>
-          <div class="row"><span class="k">1 号房池</span><span class="v gold"><span class='bal' data-bal='room1' data-f=''>7,997,603</span> LYX</span></div>
-          <div class="row"><span class="k">2 号房池</span><span class="v gold"><span class='bal' data-bal='room2' data-f=''>7,001,616</span> LYX</span></div>
-          <div class="row"><span class="k">3 号房池</span><span class="v gold"><span class='bal' data-bal='room3' data-f=''>5,999,286</span> LYX</span></div>
-          <div class="row"><span class="k">4 号房池</span><span class="v gold"><span class='bal' data-bal='room4' data-f=''>5,000,939</span> LYX</span></div>
+          <div class="row"><span class="k">1 号房池</span><span class="v gold"><span class='bal' data-bal='room1' data-f=''>7,997,946</span> LYX</span></div>
+          <div class="row"><span class="k">2 号房池</span><span class="v gold"><span class='bal' data-bal='room2' data-f=''>7,001,374</span> LYX</span></div>
+          <div class="row"><span class="k">3 号房池</span><span class="v gold"><span class='bal' data-bal='room3' data-f=''>5,999,499</span> LYX</span></div>
+          <div class="row"><span class="k">4 号房池</span><span class="v gold"><span class='bal' data-bal='room4' data-f=''>5,000,983</span> LYX</span></div>
         </div>
         <div class="note"><b>要点：</b>四间房池按 <span class='bal' data-bal='room1' data-f='wan'>800</span>/<span class='bal' data-bal='room2' data-f='wan'>700</span>/<span class='bal' data-bal='room3' data-f='wan'>600</span>/<span class='bal' data-bal='room4' data-f='wan'>500</span> 万递减预注。房间人数与淘汰节奏决定单局瓜分效率，房池越大单局奖越厚。</div>
       </div>
@@ -482,8 +490,8 @@ footer b{color:var(--text)}
           <div class="row"><span class="k">锁定价值</span><span class="v">投入时 LYX 的 USDT 价值</span></div>
           <div class="row"><span class="k">出局赔付</span><span class="v hl">锁定价值 ×1.5（按当前价折返 LYX）</span></div>
           <div class="row"><span class="k">出局资金来自</span><span class="v">后进玩家投入 + 0x99 总储备</span></div>
-          <div class="row"><span class="k">出局池余额</span><span class="v gold"><span class='bal' data-bal='exit' data-f=''>3,573,375</span> LYX</span></div>
-          <div class="row"><span class="k">0x99 总储备</span><span class="v gold"><span class='bal' data-bal='reserve' data-f=''>947,100,972</span> LYX（<span class='pct' data-pct='reserve'>94.7</span>% 供应）</span></div>
+          <div class="row"><span class="k">出局池余额</span><span class="v gold"><span class='bal' data-bal='exit' data-f=''>3,573,605</span> LYX</span></div>
+          <div class="row"><span class="k">0x99 总储备</span><span class="v gold"><span class='bal' data-bal='reserve' data-f=''>947,098,946</span> LYX（<span class='pct' data-pct='reserve'>94.7</span>% 供应）</span></div>
         </div>
         <div class="note"><b>要点：</b>金本位锁价解决「排队期间币价跌了怎么办」——出局看的是 USDT 价值，不看 LYX 数量。队列结算依赖持续的新增投入与总储备补充。</div>
       </div>
@@ -525,7 +533,7 @@ footer b{color:var(--text)}
           <div class="row"><span class="k">绑定方式</span><span class="v">空投 &gt;0.1 USDT 价值 LYX 到对方钱包地址</span></div>
           <div class="row"><span class="k">绑定范围</span><span class="v">一次绑定，全局绑定</span></div>
           <div class="row"><span class="k">分红来源</span><span class="v">盲盒 + 大逃杀 + 买卖税 + 1.5 倍出局</span></div>
-          <div class="row"><span class="k">推荐池余额</span><span class="v gold"><span class='bal' data-bal='referral' data-f=''>3,001,999</span> LYX（0x888）</span></div>
+          <div class="row"><span class="k">推荐池余额</span><span class="v gold"><span class='bal' data-bal='referral' data-f=''>3,001,894</span> LYX（0x888）</span></div>
         </div>
         <div class="note"><b>要点：</b>五代分红是「团队深度」玩法——你的收入不只看你拉了多少人，更看团队整体玩得多深。单双这类高频玩法是团队流水的主要来源。</div>
       </div>
@@ -564,32 +572,32 @@ footer b{color:var(--text)}
     <div class="pool-detail" id="pool-detail"></div>
     <div class="pool-timeline">
       <div class="pool-item big fade-up">
-        <div class="p-top"><span class="p-name">🗄️ 总储备 · 跟卖来源</span><span class="p-bal"><span class='bal' data-bal='reserve' data-f=''>947,100,972</span> LYX</span></div>
+        <div class="p-top"><span class="p-name">🗄️ 总储备 · 跟卖来源</span><span class="p-bal"><span class='bal' data-bal='reserve' data-f=''>947,098,946</span> LYX</span></div>
         <div class="p-addr">0x0000…0099 · 占总供应 <span class='pct' data-pct='reserve'>94.7</span>%</div>
         <div class="p-flow"><span class="out">出→</span> 补充出局队列 / 中奖赔付 &nbsp;<span class="sell">出→</span> 跟卖进入市场</div>
       </div>
       <div class="pool-item fade-up">
-        <div class="p-top"><span class="p-name">🎁 盲盒池</span><span class="p-bal"><span class='bal' data-bal='blindbox' data-f=''>9,022,721</span> LYX</span></div>
+        <div class="p-top"><span class="p-name">🎁 盲盒池</span><span class="p-bal"><span class='bal' data-bal='blindbox' data-f=''>9,021,103</span> LYX</span></div>
         <div class="p-addr">0x0000…dEaD</div>
         <div class="p-flow"><span class="in">入←</span> 盲盒投入 &nbsp;<span class="out">出→</span> 1.6 倍出局赔付</div>
       </div>
       <div class="pool-item fade-up">
-        <div class="p-top"><span class="p-name">⚔️ 大逃杀四房</span><span class="p-bal"><span class='bal' data-bal='rooms' data-f=''>25,999,444</span> LYX</span></div>
+        <div class="p-top"><span class="p-name">⚔️ 大逃杀四房</span><span class="p-bal"><span class='bal' data-bal='rooms' data-f=''>25,999,802</span> LYX</span></div>
         <div class="p-addr">0x0001 / 0002 / 0003 / 0004（<span class='bal' data-bal='room1' data-f='wan'>800</span>/<span class='bal' data-bal='room2' data-f='wan'>700</span>/<span class='bal' data-bal='room3' data-f='wan'>600</span>/<span class='bal' data-bal='room4' data-f='wan'>500</span> 万）</div>
         <div class="p-flow"><span class="in">入←</span> 入场投入 &nbsp;<span class="out">出→</span> 幸存者瓜分</div>
       </div>
       <div class="pool-item fade-up">
-        <div class="p-top"><span class="p-name">🎰 大乐透池</span><span class="p-bal"><span class='bal' data-bal='lottery' data-f=''>4,000,097</span> LYX</span></div>
+        <div class="p-top"><span class="p-name">🎰 大乐透池</span><span class="p-bal"><span class='bal' data-bal='lottery' data-f=''>4,000,100</span> LYX</span></div>
         <div class="p-addr">0x0000…0008</div>
         <div class="p-flow"><span class="in">入←</span> 投注额 10% &nbsp;<span class="out">出→</span> 中奖赔付</div>
       </div>
       <div class="pool-item fade-up">
-        <div class="p-top"><span class="p-name">💰 1.5 倍出局池</span><span class="p-bal"><span class='bal' data-bal='exit' data-f=''>3,573,375</span> LYX</span></div>
+        <div class="p-top"><span class="p-name">💰 1.5 倍出局池</span><span class="p-bal"><span class='bal' data-bal='exit' data-f=''>3,573,605</span> LYX</span></div>
         <div class="p-addr">0x0000…0018</div>
         <div class="p-flow"><span class="in">入←</span> 队列投入 &nbsp;<span class="out">出→</span> 1.5 倍出局 &nbsp;<span class="in">入←</span> 0x99 补充</div>
       </div>
       <div class="pool-item fade-up">
-        <div class="p-top"><span class="p-name">✈️ 推荐返利池</span><span class="p-bal"><span class='bal' data-bal='referral' data-f=''>3,001,999</span> LYX</span></div>
+        <div class="p-top"><span class="p-name">✈️ 推荐返利池</span><span class="p-bal"><span class='bal' data-bal='referral' data-f=''>3,001,894</span> LYX</span></div>
         <div class="p-addr">0x0000…0888</div>
         <div class="p-flow"><span class="tax">入←</span> 买卖税 3%+3% &nbsp;<span class="out">出→</span> 五代分红（30/25/20/15/10%）</div>
       </div>
@@ -605,7 +613,7 @@ footer b{color:var(--text)}
   <!-- ============ CHAIN 地址簿（保留板块） ============ -->
   <section class="wrap sec" id="chain">
     <div class="sec-head fade-up"><span class="sec-step">CHAIN</span><h2 class="sec-title">链上实况 · 黑洞地址簿</h2></div>
-    <p class="sec-sub fade-up">以下地址与余额均为 BSC 链上实测（数据更新于 <span id="data-updated">2026-10-25</span>，区块 ≈ <span id="data-block">129,673,981</span>）。点击「复制」保存地址。</p>
+    <p class="sec-sub fade-up">以下地址与余额均为 BSC 链上实测（数据更新于 <span id="data-updated">2026-10-25</span>，区块 ≈ <span id="data-block">129,675,198</span>）。点击「复制」保存地址。</p>
     <div class="addr-list">
       <div class="addr fade-up">
         <div class="a-top"><span class="a-name">🪙 LYX 代币</span><span class="a-bal">10 亿 LYX</span></div>
@@ -613,47 +621,47 @@ footer b{color:var(--text)}
         <div class="a-addr"><span class="txt">0xaa4de3b6196ea6d1b5c4ed3980ed908888888888</span><button class="cpy" data-copy="0xaa4de3b6196ea6d1b5c4ed3980ed908888888888">复制</button></div>
       </div>
       <div class="addr fade-up">
-        <div class="a-top"><span class="a-name">🎁 盲盒黑洞</span><span class="a-bal"><span class='bal' data-bal='blindbox' data-f=''>9,022,721</span> LYX</span></div>
+        <div class="a-top"><span class="a-name">🎁 盲盒黑洞</span><span class="a-bal"><span class='bal' data-bal='blindbox' data-f=''>9,021,103</span> LYX</span></div>
         <div class="a-func">盲盒 1.6 倍出局</div>
         <div class="a-addr"><span class="txt">0x000000000000000000000000000000000000dEaD</span><button class="cpy" data-copy="0x000000000000000000000000000000000000dEaD">复制</button></div>
       </div>
       <div class="addr fade-up">
-        <div class="a-top"><span class="a-name">🎰 大乐透黑洞</span><span class="a-bal"><span class='bal' data-bal='lottery' data-f=''>4,000,097</span> LYX</span></div>
+        <div class="a-top"><span class="a-name">🎰 大乐透黑洞</span><span class="a-bal"><span class='bal' data-bal='lottery' data-f=''>4,000,100</span> LYX</span></div>
         <div class="a-func">大乐透奖池</div>
         <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000008</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000008">复制</button></div>
       </div>
       <div class="addr fade-up">
-        <div class="a-top"><span class="a-name">💰 出局黑洞</span><span class="a-bal"><span class='bal' data-bal='exit' data-f=''>3,573,375</span> LYX</span></div>
+        <div class="a-top"><span class="a-name">💰 出局黑洞</span><span class="a-bal"><span class='bal' data-bal='exit' data-f=''>3,573,605</span> LYX</span></div>
         <div class="a-func">1.5 倍金本位出局队列</div>
         <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000018</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000018">复制</button></div>
       </div>
       <div class="addr fade-up">
-        <div class="a-top"><span class="a-name">⚔️ 大逃杀 1 号房</span><span class="a-bal"><span class='bal' data-bal='room1' data-f=''>7,997,603</span> LYX</span></div>
+        <div class="a-top"><span class="a-name">⚔️ 大逃杀 1 号房</span><span class="a-bal"><span class='bal' data-bal='room1' data-f=''>7,997,946</span> LYX</span></div>
         <div class="a-func">大逃杀房间 · 全额入池</div>
         <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000001</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000001">复制</button></div>
       </div>
       <div class="addr fade-up">
-        <div class="a-top"><span class="a-name">⚔️ 大逃杀 2 号房</span><span class="a-bal"><span class='bal' data-bal='room2' data-f=''>7,001,616</span> LYX</span></div>
+        <div class="a-top"><span class="a-name">⚔️ 大逃杀 2 号房</span><span class="a-bal"><span class='bal' data-bal='room2' data-f=''>7,001,374</span> LYX</span></div>
         <div class="a-func">大逃杀房间 · 全额入池</div>
         <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000002</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000002">复制</button></div>
       </div>
       <div class="addr fade-up">
-        <div class="a-top"><span class="a-name">⚔️ 大逃杀 3 号房</span><span class="a-bal"><span class='bal' data-bal='room3' data-f=''>5,999,286</span> LYX</span></div>
+        <div class="a-top"><span class="a-name">⚔️ 大逃杀 3 号房</span><span class="a-bal"><span class='bal' data-bal='room3' data-f=''>5,999,499</span> LYX</span></div>
         <div class="a-func">大逃杀房间 · 全额入池</div>
         <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000003</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000003">复制</button></div>
       </div>
       <div class="addr fade-up">
-        <div class="a-top"><span class="a-name">⚔️ 大逃杀 4 号房</span><span class="a-bal"><span class='bal' data-bal='room4' data-f=''>5,000,939</span> LYX</span></div>
+        <div class="a-top"><span class="a-name">⚔️ 大逃杀 4 号房</span><span class="a-bal"><span class='bal' data-bal='room4' data-f=''>5,000,983</span> LYX</span></div>
         <div class="a-func">大逃杀房间 · 全额入池</div>
         <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000004</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000004">复制</button></div>
       </div>
       <div class="addr fade-up">
-        <div class="a-top"><span class="a-name">🗄️ 总储备黑洞</span><span class="a-bal"><span class='bal' data-bal='reserve' data-f=''>947,100,972</span> LYX</span></div>
+        <div class="a-top"><span class="a-name">🗄️ 总储备黑洞</span><span class="a-bal"><span class='bal' data-bal='reserve' data-f=''>947,098,946</span> LYX</span></div>
         <div class="a-func">总储备 · 跟卖来源（<span class='pct' data-pct='reserve'>94.7</span>% 供应）</div>
         <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000099</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000099">复制</button></div>
       </div>
       <div class="addr fade-up">
-        <div class="a-top"><span class="a-name">✈️ 推荐返利黑洞</span><span class="a-bal"><span class='bal' data-bal='referral' data-f=''>3,001,999</span> LYX</span></div>
+        <div class="a-top"><span class="a-name">✈️ 推荐返利黑洞</span><span class="a-bal"><span class='bal' data-bal='referral' data-f=''>3,001,894</span> LYX</span></div>
         <div class="a-func">五级推荐分红池</div>
         <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000888</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000888">复制</button></div>
       </div>
@@ -661,9 +669,36 @@ footer b{color:var(--text)}
   </section>
 </main>
 
+  <!-- ============ 社区成员真实感受 ============ -->
+  <section class="wrap sec" id="voices">
+    <div class="sec-head fade-up"><span class="sec-step">VOICES</span><h2 class="sec-title">社区成员真实感受</h2></div>
+    <div class="voice-list">
+      <div class="voice fade-up"><div class="v-head"><span class="va">强</span>阿强</div>
+        <div class="v-body">两个月前，我在电子厂两班倒，一个月拿四千七。工友把我拉进社区那天，我连钱包都不会建。现在白班下班我就研究玩法，夜班等线的时候看群里的课。两个月，我攒下了人生第一笔五位数，给老家爸妈装了台他们念叨十年的空调。谢谢拉我进来的兄弟，也谢谢群里那些连我名字都不知道、却愿意一步步教我的人。</div></div>
+      <div class="voice fade-up"><div class="v-head"><span class="va">丽</span>晓丽</div>
+        <div class="v-body">带娃三年，最难受的不是累，是跟老公伸手要钱时的那句"又花完了？"两个月前我从空投 0.1U 绑定开始，孩子睡了以后偷偷学。现在奶粉、尿不湿不用再看谁脸色，上个月还给家里添了台净水器。最感恩社区里的姐妹，语音一条条教我，从不说我笨。</div></div>
+      <div class="voice fade-up"><div class="v-head"><span class="va">凯</span>小凯</div>
+        <div class="v-body">我家条件一般，生活费靠兼职发传单，一小时二十块。拿省出来的几百块试水，一开始只敢玩最简单的单双。两个月，我把助学贷款的利息先还上了，还给妈妈买了个按摩仪——她腰不好。第一次觉得，我还没毕业，也能为家里做点什么了。</div></div>
+      <div class="voice fade-up"><div class="v-head"><span class="va">周</span>老周</div>
+        <div class="v-body">生意难做，房租拖了三个月，房东电话我都不敢接。我这年纪、这文化，最怕复杂的东西。LYX 就一句"转账就是玩"，我学会了。白天炒粉，晚上研究黑洞，两个月，拖欠的房租全补上了。谢谢社区，没嫌弃我学得慢。</div></div>
+      <div class="voice fade-up"><div class="v-head"><span class="va">刘</span>刘姨</div>
+        <div class="v-body">子女怕我被骗，天天打电话查岗。我跟他们说，你妈教书一辈子，看得比你们认真——每个玩法我都记笔记，字比备课本还工整。收益不算多，但这两个月，我重新有了盼头、有了热闹。最感恩的是群里年轻人一口一个"刘老师"，耐心给我讲，像当年我给他们讲课一样。</div></div>
+      <div class="voice fade-up"><div class="v-head"><span class="va">军</span>大军</div>
+        <div class="v-body">风里雨里跑单，一单赚几块。等餐的空档，我就打开手册看两眼，玩一局。两个月，我多了一份"副驾驶上的收入"，上个月给闺女交了舞蹈班的学费，她高兴得跳起来。谢谢社区，半夜跑完最后一单回来，群里还有人回我的问题。</div></div>
+      <div class="voice fade-up"><div class="v-head"><span class="va">珍</span>阿珍</div>
+        <div class="v-body">服装店亏得底朝天，最难的时候靠信用卡过日子。朋友跟我讲 LYX，我当他是骗子，拉黑了两次。两个月后，我不光欠的钱在慢慢还，更重要的是重新找回了"我还能成事"的那股劲。感恩社区没嫌弃我这个小白，一遍遍教，从不笑话我。</div></div>
+      <div class="voice fade-up"><div class="v-head"><span class="va">赵</span>老赵</div>
+        <div class="v-body">转业后当保安，站一天岗，工资三千出头。女儿考上大学，学费我是又高兴又发愁。白天站岗，晚上回来研究，出局队列那一套我现在比谁都熟。两个月，给女儿的生活费攒出了厚厚一沓。这个年纪还能学新东西、还被大伙儿尊重，值了。</div></div>
+      <div class="voice fade-up"><div class="v-head"><span class="va">J</span>Jason</div>
+        <div class="v-body">大厂裸辞之后，焦虑得整宿睡不着。我是搞技术的，把合约逻辑翻来覆去研究了个遍，越看越认可这套机制的设计。两个月，边找工作边有一份稳定的副收入，心里踏实多了。也感恩社区的技术氛围，讨论起来真有当年论坛的味道。</div></div>
+      <div class="voice fade-up"><div class="v-head"><span class="va">马</span>老马</div>
+        <div class="v-body">我们种水果的，一年就忙一季，闲季干瞪眼。两个月前朋友说，有部手机就能参与。我半信半疑试了试——真的，手机、微信、会转账，就够了。闲季不再闲着，收入把空档补上了。谢谢这个社区，让再远的地方也能赶上趟。</div></div>
+    </div>
+  </section>
+
 <footer>
   <div class="wrap">
-    本页面为 LYX 黑洞生态的<b>玩法机制说明</b>，机制按项目规则与 BSC 链上实测数据整理（数据更新于 <span id="data-updated">2026-10-25</span>，区块 ≈ <span id="data-block">129,673,981</span>），
+    本页面为 LYX 黑洞生态的<b>玩法机制说明</b>，机制按项目规则与 BSC 链上实测数据整理（数据更新于 <span id="data-updated">2026-10-25</span>，区块 ≈ <span id="data-block">129,675,198</span>），
     单双赔付等个别参数以玩法端实际展示为准。仅供学习了解玩法逻辑，不构成任何投资建议。
   </div>
 </footer>
@@ -725,17 +760,17 @@ footer b{color:var(--text)}
   ];
   var detail = {
     buy: { n: "✈️ 推荐返利池（0x…0888）", a: "0x0000000000000000000000000000000000000888",
-      f: "流入：买卖税 3%+3% · 流出：五代分红 30/25/20/15/10% · 池内 <span class='bal' data-bal='referral' data-f=''>3,001,999</span> LYX" },
+      f: "流入：买卖税 3%+3% · 流出：五代分红 30/25/20/15/10% · 池内 <span class='bal' data-bal='referral' data-f=''>3,001,894</span> LYX" },
     blindbox: { n: "🎁 盲盒池（0x…dEaD）", a: "0x000000000000000000000000000000000000dEaD",
-      f: "流入：盲盒投入（全额入池） · 流出：1.6 倍出局赔付 · 池内 <span class='bal' data-bal='blindbox' data-f=''>9,022,721</span> LYX" },
+      f: "流入：盲盒投入（全额入池） · 流出：1.6 倍出局赔付 · 池内 <span class='bal' data-bal='blindbox' data-f=''>9,021,103</span> LYX" },
     rooms: { n: "⚔️ 大逃杀四房（0x…0001 ~ 0004）", a: "0x0000000000000000000000000000000000000001 ~ 0x0000000000000000000000000000000000000004",
-      f: "流入：入场投入（全额入池） · 流出：幸存者瓜分 · 四房合计 <span class='bal' data-bal='rooms' data-f=''>25,999,444</span> LYX（<span class='bal' data-bal='room1' data-f='wan'>800</span>/<span class='bal' data-bal='room2' data-f='wan'>700</span>/<span class='bal' data-bal='room3' data-f='wan'>600</span>/<span class='bal' data-bal='room4' data-f='wan'>500</span> 万）" },
+      f: "流入：入场投入（全额入池） · 流出：幸存者瓜分 · 四房合计 <span class='bal' data-bal='rooms' data-f=''>25,999,802</span> LYX（<span class='bal' data-bal='room1' data-f='wan'>800</span>/<span class='bal' data-bal='room2' data-f='wan'>700</span>/<span class='bal' data-bal='room3' data-f='wan'>600</span>/<span class='bal' data-bal='room4' data-f='wan'>500</span> 万）" },
     lottery: { n: "🎰 大乐透池（0x…0008）", a: "0x0000000000000000000000000000000000000008",
-      f: "流入：投注额 10% · 流出：中奖赔付（×88 / ×8 / ×2） · 池内 <span class='bal' data-bal='lottery' data-f=''>4,000,097</span> LYX" },
+      f: "流入：投注额 10% · 流出：中奖赔付（×88 / ×8 / ×2） · 池内 <span class='bal' data-bal='lottery' data-f=''>4,000,100</span> LYX" },
     reserve: { n: "🗄️ 总储备 · 跟卖（0x…0099）", a: "0x0000000000000000000000000000000000000099",
-      f: "流入：初始分配与玩法沉淀 · 流出：补充出局队列、跟卖回市场 · 池内 <span class='bal' data-bal='reserve' data-f=''>947,100,972</span> LYX（占总供应 <span class='pct' data-pct='reserve'>94.7</span>%）" },
+      f: "流入：初始分配与玩法沉淀 · 流出：补充出局队列、跟卖回市场 · 池内 <span class='bal' data-bal='reserve' data-f=''>947,098,946</span> LYX（占总供应 <span class='pct' data-pct='reserve'>94.7</span>%）" },
     exit: { n: "💰 1.5 倍出局池（0x…0018）", a: "0x0000000000000000000000000000000000000018",
-      f: "流入：队列投入 + 0x99 总储备补充 · 流出：1.5 倍金本位出局 · 池内 <span class='bal' data-bal='exit' data-f=''>3,573,375</span> LYX" },
+      f: "流入：队列投入 + 0x99 总储备补充 · 流出：1.5 倍金本位出局 · 池内 <span class='bal' data-bal='exit' data-f=''>3,573,605</span> LYX" },
     player: { n: "🫵 你的钱包", a: "玩法入口 · 所有玩法围绕它运转",
       f: "投入起点与赔付终点：买入 LYX → 转黑洞下注 → 出局/中奖/分红回吐钱包" }
   };

@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LYX 黑洞生态 · 玩法说明手册</title>
+<style>
+/* ============ LYX 黑洞生态 · 玩法说明手册 · 手机端优先 ============ */
+:root{
+  --canvas:#0b0e11; --card:#1e2329; --elevated:#2b3139; --hairline:#2b3139;
+  --primary:#fcd535; --primary-active:#f0b90b; --on-primary:#181a20;
+  --up:#0ecb81; --down:#f6465d; --muted:#707a8a; --text:#eaecef; --text-strong:#ffffff;
+  --acc1:#ff9d2e; --acc2:#fcd535; --photon:#8ab4ff;
+  --font:'PingFang SC','Microsoft YaHei','Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:'SF Mono',Menlo,Consolas,'Courier New',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--canvas);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.75;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+   radial-gradient(900px 600px at 50% -8%,rgba(252,213,53,.07),transparent 60%),
+   radial-gradient(700px 500px at 92% 30%,rgba(138,180,255,.05),transparent 60%),
+   radial-gradient(700px 600px at 6% 72%,rgba(255,157,46,.05),transparent 60%);}
+main{position:relative;z-index:1}
+
+/* ---------- 顶栏 ---------- */
+.topbar{position:sticky;top:0;z-index:60;background:rgba(11,14,17,.88);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--hairline);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.topbar .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;color:var(--text-strong)}
+.topbar .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--primary);box-shadow:0 0 12px var(--primary)}
+.topbar .tag{margin-left:auto;font-size:11px;color:var(--primary);border:1px solid rgba(252,213,53,.4);
+  border-radius:8px;padding:2px 9px;background:rgba(252,213,53,.07)}
+
+/* ---------- 锚点导航 ---------- */
+.nav{position:sticky;top:53px;z-index:59;background:rgba(11,14,17,.88);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--hairline);overflow-x:auto;white-space:nowrap;padding:8px 12px;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{display:inline-block;color:var(--muted);font-size:13px;text-decoration:none;padding:6px 13px;
+  border-radius:20px;border:1px solid var(--hairline);margin-right:8px;transition:.2s}
+.nav a:active,.nav a.on{color:var(--on-primary);background:var(--primary);border-color:var(--primary);font-weight:700}
+
+/* ---------- 容器 ---------- */
+.wrap{max-width:600px;margin:0 auto;padding:0 16px}
+.sec{padding:38px 0 6px}
+
+/* ---------- HERO ---------- */
+.hero{text-align:center;padding:40px 16px 8px}
+.bh{position:relative;width:210px;height:210px;margin:0 auto 22px}
+.bh .void{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,#000 40%,transparent 41%)}
+.bh .glow{position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,rgba(255,157,46,.5),rgba(252,213,53,.18) 42%,transparent 66%);filter:blur(12px);animation:pulse 3.6s infinite}
+.bh .disk{position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(rgba(255,157,46,.9),rgba(252,213,53,.7),rgba(255,106,0,.55),rgba(138,180,255,.3),rgba(255,157,46,.9));
+  animation:spin 9s linear infinite;-webkit-mask:radial-gradient(circle,transparent 40%,#000 41%,#000 52%,transparent 53%)}
+.bh .ring{position:absolute;inset:2%;border-radius:50%;border:1px dashed rgba(252,213,53,.35);animation:spin 46s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+.hero h1{font-size:30px;font-weight:800;color:var(--text-strong);letter-spacing:-.5px}
+.hero h1 .gold{color:var(--primary)}
+.hero p{color:var(--muted);font-size:14px;margin-top:10px}
+.hero .chips{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;border-radius:8px;padding:3px 9px;
+  border:1px solid var(--hairline);color:var(--muted);font-family:var(--mono)}
+.chip.gold{border-color:rgba(252,213,53,.4);color:var(--primary);background:rgba(252,213,53,.07)}
+.chip.up{border-color:rgba(14,203,129,.4);color:var(--up);background:rgba(14,203,129,.07)}
+
+/* ---------- 区块头 ---------- */
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.sec-step{font-family:var(--mono);color:var(--primary);background:rgba(252,213,53,.08);
+  border:1px solid rgba(252,213,53,.35);border-radius:8px;padding:2px 10px;font-size:12px;white-space:nowrap}
+.sec-title{font-size:24px;font-weight:700;color:var(--text-strong);letter-spacing:-.3px}
+.sec-sub{color:var(--muted);font-size:13.5px;margin:6px 0 20px}
+
+/* ---------- 步骤卡 ---------- */
+.steps{display:flex;flex-direction:column;gap:12px}
+.step{display:flex;gap:13px;background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:15px 16px}
+.step .n{flex:none;width:32px;height:32px;border-radius:10px;background:rgba(252,213,53,.12);color:var(--primary);
+  font-family:var(--mono);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+.step .t{font-weight:700;font-size:15.5px;color:var(--text-strong);display:flex;align-items:center;gap:7px}
+.step .d{font-size:13.5px;color:var(--muted);margin-top:3px}
+.step .d b{color:var(--text)}
+
+/* ---------- 玩法卡 ---------- */
+.game{background:var(--card);border:1px solid var(--hairline);border-radius:18px;margin-bottom:16px;overflow:hidden}
+.game-head{padding:17px 17px 0;display:flex;align-items:flex-start;gap:12px}
+.game-ico{font-size:30px;line-height:1.2;flex:none}
+.game-name{font-size:18px;font-weight:700;color:var(--text-strong)}
+.game-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.game-body{padding:12px 17px 17px}
+.game-body .intro{font-size:13.5px;color:var(--muted);margin-bottom:12px}
+.game-body .intro b{color:var(--text)}
+.rows{border:1px solid var(--hairline);border-radius:12px;overflow:hidden;margin-bottom:12px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:10px 13px;font-size:13px;background:rgba(11,14,17,.4)}
+.row:nth-child(even){background:rgba(43,49,57,.22)}
+.row .k{color:var(--muted);flex:none;max-width:42%}
+.row .v{font-family:var(--mono);font-size:12.5px;text-align:right;word-break:break-all;color:var(--text)}
+.row .v.gold{color:var(--primary)}
+.row .v.up{color:var(--up)}
+.row .v.hl{color:var(--primary);font-weight:700}
+.note{border:1px solid rgba(252,213,53,.28);background:rgba(252,213,53,.06);border-radius:12px;
+  padding:10px 13px;font-size:12.5px;color:var(--text);line-height:1.8}
+.note b{color:var(--primary)}
+
+/* ---------- 机制说明 ---------- */
+.mech{background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:16px;margin-bottom:14px}
+.mech .mt{font-weight:700;font-size:15.5px;color:var(--text-strong);margin-bottom:6px}
+.mech .md{font-size:13.5px;color:var(--muted)}
+.mech .md b{color:var(--text)}
+
+/* ---------- 推荐比例表 ---------- */
+.share-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.share{display:flex;align-items:center;gap:11px;background:rgba(11,14,17,.4);border:1px solid var(--hairline);border-radius:12px;padding:10px 13px}
+.share .gen{flex:none;font-family:var(--mono);font-size:12px;color:var(--muted);width:38px}
+.share .bar{flex:1;height:9px;border-radius:5px;background:var(--elevated);overflow:hidden}
+.share .bar i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--acc1),var(--acc2));box-shadow:0 0 10px rgba(252,213,53,.4)}
+.share .pct{flex:none;font-family:var(--mono);font-weight:700;font-size:14px;color:var(--primary);width:46px;text-align:right}
+
+/* ---------- POOLS 资金池（保留板块） ---------- */
+.pool-flow{text-align:center;margin-bottom:18px}
+.pool-flow .mini-bh{position:relative;width:130px;height:130px;margin:0 auto 14px}
+.pool-flow .mini-bh .void{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,#000 42%,transparent 43%)}
+.pool-flow .mini-bh .disk{position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(rgba(255,157,46,.85),rgba(252,213,53,.65),rgba(255,106,0,.5),rgba(138,180,255,.3),rgba(255,157,46,.85));
+  animation:spin 8s linear infinite;-webkit-mask:radial-gradient(circle,transparent 42%,#000 43%,#000 53%,transparent 54%)}
+.pool-flow .flow-note{font-size:12.5px;color:var(--muted);line-height:2}
+.pool-flow .flow-note b{color:var(--text)}
+.pool-timeline{position:relative;padding-left:22px}
+.pool-timeline::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:1px;
+  background:linear-gradient(180deg,var(--acc2),rgba(252,213,53,.15))}
+.pool-item{position:relative;margin-bottom:12px;background:var(--card);border:1px solid var(--hairline);border-radius:14px;padding:12px 14px}
+.pool-item::before{content:"";position:absolute;left:-21px;top:18px;width:9px;height:9px;border-radius:50%;
+  background:var(--acc2);box-shadow:0 0 10px rgba(252,213,53,.7)}
+.pool-item .p-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.pool-item .p-name{font-weight:700;font-size:14.5px;color:var(--text-strong)}
+.pool-item .p-bal{font-family:var(--mono);font-size:14px;color:var(--primary);white-space:nowrap}
+.pool-item .p-addr{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:2px}
+.pool-item .p-flow{font-size:12px;color:var(--muted);margin-top:7px;line-height:1.9}
+.pool-item .p-flow .in{color:var(--acc2)}.pool-item .p-flow .out{color:var(--up)}
+.pool-item .p-flow .tax{color:var(--photon)}.pool-item .p-flow .sell{color:var(--down)}
+.pool-item.big{border-color:rgba(252,213,53,.45);background:linear-gradient(160deg,rgba(252,213,53,.09),var(--card) 60%)}
+.pool-item.big::before{width:12px;height:12px;left:-22.5px;top:16px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.ldot{width:8px;height:8px;border-radius:50%}
+
+/* ---------- CHAIN 地址簿（保留板块） ---------- */
+.addr-list{display:flex;flex-direction:column;gap:10px}
+.addr{background:var(--card);border:1px solid var(--hairline);border-radius:14px;padding:12px 14px}
+.addr .a-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.addr .a-name{font-weight:700;font-size:14px;color:var(--text-strong)}
+.addr .a-bal{font-family:var(--mono);font-size:13px;color:var(--primary);white-space:nowrap}
+.addr .a-func{font-size:12px;color:var(--muted);margin:2px 0 6px}
+.addr .a-addr{display:flex;align-items:center;gap:8px;background:rgba(11,14,17,.5);border:1px solid var(--hairline);
+  border-radius:10px;padding:7px 11px}
+.addr .a-addr .txt{font-family:var(--mono);font-size:11.5px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.addr .a-addr .cpy{flex:none;font-size:11px;color:var(--muted);border:1px solid var(--hairline);
+  border-radius:7px;padding:2px 8px;cursor:pointer;transition:.15s;background:none;font-family:var(--font)}
+.addr .a-addr .cpy:active{color:var(--primary);border-color:var(--primary)}
+
+/* ---------- 页脚 ---------- */
+footer{border-top:1px solid var(--hairline);margin-top:46px;padding:24px 16px 36px;color:var(--muted);
+  font-size:12px;line-height:1.9;position:relative;z-index:1}
+footer b{color:var(--text)}
+
+/* 入场动画（纯 CSS） */
+.fade-up{opacity:0;transform:translateY(22px);animation:fadein .7s ease forwards}
+@keyframes fadein{to{opacity:1;transform:none}}
+
+/* ---------- POOLS 动态全图景（手机端适配版） ---------- */
+.pool-map{position:relative;width:100%;aspect-ratio:1/1.06;min-height:430px;max-height:600px;
+  border:1px solid var(--hairline);border-radius:20px;overflow:hidden;margin-bottom:14px;
+  background:radial-gradient(420px 380px at 50% 52%,rgba(252,213,53,.06),transparent 72%),var(--card)}
+.pool-svg{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.pool-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:30%;max-width:148px;aspect-ratio:1;z-index:2;pointer-events:none}
+.pool-center .void{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,#000 44%,transparent 45%)}
+.pool-center .disk{position:absolute;inset:-3%;border-radius:50%;
+  background:conic-gradient(rgba(255,157,46,.85),rgba(252,213,53,.6),rgba(255,106,0,.5),rgba(138,180,255,.3),rgba(255,157,46,.85));
+  animation:spin 8s linear infinite;-webkit-mask:radial-gradient(circle,transparent 44%,#000 45%,#000 54%,transparent 55%)}
+.pool-center .tag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:10px;
+  color:var(--muted);font-family:var(--mono);letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(252,213,53,.4)}
+.pool-node{position:absolute;transform:translate(-50%,-50%);z-index:3;background:var(--canvas);
+  border:1px solid var(--hairline);border-radius:11px;padding:6px 9px;text-align:center;cursor:pointer;
+  transition:transform .2s,border-color .2s,box-shadow .2s;width:31%;max-width:148px}
+.pool-node .p-addr{font-family:var(--mono);font-size:9.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pool-node .p-name{font-size:11.5px;font-weight:700;color:var(--text-strong);margin:1px 0;white-space:nowrap}
+.pool-node .p-bal{font-family:var(--mono);font-size:11px;color:var(--primary);white-space:nowrap}
+.pool-node.big{border-color:rgba(252,213,53,.5);background:linear-gradient(160deg,rgba(252,213,53,.12),var(--canvas));width:35%;max-width:168px;padding:8px 10px}
+.pool-node.big .p-bal{font-size:clamp(11px,3.4vw,14px)}
+.pool-node.me{border-color:rgba(14,203,129,.4)}
+.pool-node.on,.pool-node:active{border-color:var(--primary);box-shadow:0 0 20px rgba(252,213,53,.35)}
+@media(hover:hover){.pool-node:hover{border-color:var(--primary);box-shadow:0 0 20px rgba(252,213,53,.3)}}
+.pool-detail{display:none;border:1px solid rgba(252,213,53,.3);background:rgba(252,213,53,.05);
+  border-radius:12px;padding:11px 14px;font-size:12.5px;margin-bottom:14px;line-height:1.9}
+.pool-detail.show{display:block;animation:fadein .3s}
+.pool-detail .d-name{font-weight:700;color:var(--text-strong);font-size:13.5px}
+.pool-detail .d-addr{font-family:var(--mono);font-size:11px;color:var(--muted);word-break:break-all}
+.pool-detail .d-flow{color:var(--muted);font-size:12px;margin-top:2px}
+
+/* ---------- 打赏位 ---------- */
+.donate{border:1px solid rgba(252,213,53,.5);border-radius:18px;padding:18px 16px 16px;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,rgba(252,213,53,.13),rgba(252,213,53,.03) 45%,var(--card) 78%)}
+.donate::before{content:"✦";position:absolute;right:14px;top:8px;color:rgba(252,213,53,.3);font-size:28px;animation:pulse 3s infinite}
+.donate-head{font-weight:800;font-size:17px;color:var(--primary);margin-bottom:6px}
+.donate-body{font-size:13.5px;color:var(--text);line-height:1.9;max-width:88%}
+.donate-addr{display:flex;align-items:center;gap:8px;margin-top:12px;background:rgba(11,14,17,.6);
+  border:1px solid rgba(252,213,53,.4);border-radius:12px;padding:9px 12px}
+.donate-addr .txt{flex:1;font-family:var(--mono);font-size:12.5px;color:var(--text);word-break:break-all;line-height:1.5}
+.donate-btn{flex:none;background:var(--primary);color:var(--on-primary);border:none;border-radius:10px;
+  padding:9px 14px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}
+.donate-btn:active{transform:scale(.94)}
+
+/* ---------- 打赏 LYX 闪烁跳动 ---------- */
+.tip-pulse{display:inline-block;font-weight:800;color:var(--primary);animation:tipPulse 1.6s ease-in-out infinite}
+@keyframes tipPulse{
+  0%,100%{transform:translateY(0);text-shadow:0 0 6px rgba(252,213,53,.35)}
+  25%{transform:translateY(-2.5px);text-shadow:0 0 16px rgba(252,213,53,.9)}
+  50%{transform:translateY(0);text-shadow:0 0 6px rgba(252,213,53,.35)}
+  75%{transform:translateY(-1.5px);text-shadow:0 0 12px rgba(252,213,53,.6)}
+}
+
+/* ---------- K线行情卡 ---------- */
+.chart-card{background:var(--card);border:1px solid var(--hairline);border-radius:18px;padding:16px 16px 12px;margin-bottom:16px}
+.chart-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.chart-name{font-size:13px;color:var(--muted)}
+.chart-price{font-size:30px;font-weight:800;color:var(--text-strong);font-family:var(--mono);letter-spacing:-.5px;margin-top:2px}
+.ck-usd{font-size:13px;color:var(--muted);margin-left:6px;font-weight:400}
+.chart-side{text-align:right}
+.ck-chg{display:inline-block;font-family:var(--mono);font-weight:700;font-size:14px;border-radius:8px;padding:3px 9px}
+.ck-chg.up{color:var(--up);background:rgba(14,203,129,.1);border:1px solid rgba(14,203,129,.35)}
+.ck-chg.down{color:var(--down);background:rgba(246,70,93,.1);border:1px solid rgba(246,70,93,.35)}
+.chart-live{display:block;margin-top:6px;font-size:11px;color:var(--muted)}
+.chart-meta{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 6px;font-size:12px;color:var(--muted)}
+.chart-meta b{font-family:var(--mono);color:var(--text)}
+.chart-box{width:100%;height:230px;position:relative}
+.chart-box svg{width:100%;height:100%;display:block}
+.ck-tip{position:absolute;z-index:10;pointer-events:none;background:var(--elevated);border:1px solid var(--hairline);
+  border-radius:8px;padding:6px 9px;font-family:var(--mono);font-size:10.5px;color:var(--text);line-height:1.7;
+  display:none;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.chart-foot{font-size:10.5px;color:var(--muted);margin-top:8px;border-top:1px solid var(--hairline);padding-top:8px}
+
+/* ---------- 会员分布 · 实时买入地图 ---------- */
+.mem-map{background:var(--card);border:1px solid var(--hairline);border-radius:18px;padding:14px;margin-bottom:18px}
+.mem-world{position:relative;border:1px solid var(--hairline);border-radius:12px;overflow:hidden;
+  background:radial-gradient(320px 160px at 50% 40%,rgba(252,213,53,.05),transparent 70%),rgba(5,7,10,.7)}
+.mem-dot{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(174,196,255,.28);pointer-events:none}
+.mem-buy{position:absolute;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;z-index:2;
+  background:radial-gradient(circle,#fff,var(--acc2));box-shadow:0 0 10px var(--acc2)}
+.mem-ping{position:absolute;transform:translate(-50%,-50%);border-radius:50%;border:1.5px solid var(--acc2);
+  animation:ping 1.1s ease-out forwards;pointer-events:none;z-index:3}
+@keyframes ping{from{width:6px;height:6px;opacity:.95}to{width:46px;height:46px;opacity:0}}
+.mem-label{position:absolute;transform:translate(-50%,-130%);z-index:4;pointer-events:none;
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--primary);
+  background:rgba(30,35,41,.92);border:1px solid rgba(252,213,53,.45);border-radius:7px;
+  padding:2px 7px;white-space:nowrap;animation:lblUp 1.6s ease-out forwards}
+@keyframes lblUp{0%{opacity:0;margin-top:6px}12%{opacity:1;margin-top:0}75%{opacity:1}100%{opacity:0;margin-top:-16px}}
+.mem-feed{display:flex;flex-direction:column;gap:5px;margin-top:10px;max-height:150px;overflow:hidden}
+.mfeed{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;color:var(--muted);
+  background:rgba(11,14,17,.5);border:1px solid var(--hairline);border-radius:9px;padding:5px 10px;
+  animation:pop .4s cubic-bezier(.2,1.4,.4,1)}
+.mfeed b{font-family:var(--mono);color:var(--acc2)}
+.mfeed .t{color:var(--muted);font-size:10.5px;flex:none}
+
+/* ---------- 社区占比 ---------- */
+.comm-wrap{background:var(--card);border:1px solid var(--hairline);border-radius:18px;padding:16px}
+.comm-head{margin-bottom:12px}
+.comm-list{display:flex;flex-direction:column;gap:7px}
+.comm{display:flex;align-items:center;gap:9px;font-size:12.5px}
+.comm .c-tag{flex:none;font-size:10px;border-radius:6px;padding:1px 6px;font-family:var(--font)}
+.c-tag.gc{color:var(--primary);background:rgba(252,213,53,.1);border:1px solid rgba(252,213,53,.4)}
+.c-tag.pg{color:#a78bfa;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.4)}
+.c-tag.ot{color:var(--muted);border:1px solid var(--hairline);background:rgba(43,49,57,.3)}
+.comm .c-name{flex:none;width:118px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.comm .c-bar{flex:1;height:8px;border-radius:5px;background:var(--elevated);overflow:hidden}
+.comm .c-bar i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--acc1),var(--acc2))}
+.comm.gc .c-bar i{background:linear-gradient(90deg,#f0b90b,#fcd535)}
+.comm.pg .c-bar i{background:linear-gradient(90deg,#7c5cf0,#a78bfa)}
+.comm .c-pct{flex:none;font-family:var(--mono);font-size:11.5px;color:var(--primary);width:44px;text-align:right}
+.comm .c-num{flex:none;font-family:var(--mono);font-size:10.5px;color:var(--muted);width:52px;text-align:right}
+
+/* ---------- 黑洞核心 Logo（闪烁放光） ---------- */
+.bh-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:37%;aspect-ratio:1;
+  border-radius:50%;overflow:hidden;z-index:3;
+  animation:logoGlow 2.4s ease-in-out infinite}
+.bh-logo img{width:100%;height:100%;display:block;object-fit:cover}
+@keyframes logoGlow{
+  0%,100%{box-shadow:0 0 16px rgba(252,213,53,.4),0 0 40px rgba(255,157,46,.22);filter:brightness(1)}
+  25%{box-shadow:0 0 34px rgba(252,213,53,.95),0 0 92px rgba(255,157,46,.6);filter:brightness(1.2)}
+  50%{box-shadow:0 0 18px rgba(252,213,53,.45),0 0 48px rgba(255,157,46,.28);filter:brightness(1.03)}
+  75%{box-shadow:0 0 28px rgba(252,213,53,.85),0 0 76px rgba(255,157,46,.5);filter:brightness(1.15)}
+}
+
+</style>
+</head>
+<body>
+<!-- ============ 顶栏 ============ -->
+<div class="topbar">
+  <div class="logo"><span class="dot"></span>LYX 黑洞生态</div>
+  <div class="tag">玩法说明手册</div>
+</div>
+
+<!-- ============ 锚点导航 ============ -->
+<nav class="nav" id="nav">
+  <a href="#overview">玩法总览</a>
+  <a href="#games">四大玩法</a>
+  <a href="#exit">1.5倍出局</a>
+  <a href="#gold">金本位</a>
+  <a href="#referral">五级推荐</a>
+  <a href="#members">会员分布</a>
+  <a href="#pools">资金池</a>
+  <a href="#chain">地址簿</a>
+</nav>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <div class="hero">
+    <div class="bh">
+      <div class="glow"></div>
+      <div class="disk"></div>
+      <div class="ring"></div>
+      <div class="void"></div>
+      <div class="bh-logo"><img src="data:image/jpeg;base64,
+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" alt="LYX"></div>
+    </div>
+    <h1>吞噬 LYX · <span class="gold">1.5 倍出局</span></h1>
+    <p>把 LYX 投进黑洞，等它被「消化」后吐出来。这里把每个玩法的规则、入场方式、赔付口径一次讲清楚。</p>
+    <div class="chips">
+      <span class="chip gold">BSC · LYX/USDT</span>
+      <span class="chip gold">买税 3% / 卖税 3%</span>
+      <span class="chip gold">金本位 = USDT</span>
+      <span class="chip">总量 10 亿固定</span>
+    </div>
+  </div>
+
+  <!-- ============ K线行情 ============ -->
+  <section class="wrap" id="chart" style="padding-top:4px">
+    <div class="chart-card fade-up">
+      <div class="chart-head">
+        <div>
+          <div class="chart-name">LYX / USDT · 实时行情</div>
+          <div class="chart-price"><span id="ck-price">--</span><span class="ck-usd">USDT</span></div>
+        </div>
+        <div class="chart-side">
+          <span class="ck-chg" id="ck-chg">--</span>
+          <span class="chart-live" id="ck-live">加载中…</span>
+        </div>
+      </div>
+      <div class="chart-meta">
+        <span>24h 成交量 <b id="ck-vol">--</b></span>
+        <span>流动性 <b id="ck-liq">--</b></span>
+        <span id="ck-time"></span>
+      </div>
+      <div class="chart-box" id="ck-box"></div>
+      <div class="chart-foot">K 线为 1 小时级别 · 数据源 GeckoTerminal / DexScreener · 页面打开自动拉取，实时刷新；无网络时展示每日快照</div>
+    </div>
+    <script id="lyx-snap" type="application/json">{"price": 1.79, "changeH24": -38.56, "volumeH24": 1724069.91, "liquidity": 1650420.23, "candles": [[1792904400, 2.10347691760115, 2.10509663791084, 1.80244745147543, 1.8025259868471, 186980.36438735717], [1792900800, 2.2885994024951, 2.32968639545989, 2.08205963301895, 2.10347691760115, 88732.41079730031], [1792897200, 2.37345001494573, 2.42083596822263, 2.24863908135381, 2.2885994024951, 63371.920457896864], [1792893600, 2.17237817213591, 2.41071191434451, 1.7360334449453, 2.37345001494573, 456973.86528915435], [1792890000, 2.72324022952644, 2.72915715922175, 2.16314915307344, 2.17237817213591, 124545.16813884687], [1792886400, 2.55956304170254, 2.73671300311631, 2.54686477564386, 2.72324022952644, 40346.14054195755], [1792882800, 2.45989554412601, 2.57482383286343, 2.4453770518322, 2.55956304170254, 28351.232810637357], [1792879200, 2.56386653525524, 2.58985895400318, 2.44781128521761, 2.45989554412601, 34103.41218794896], [1792875600, 2.64207988067597, 2.66470807449123, 2.56289857175478, 2.56386653525524, 19378.96115829454], [1792872000, 2.61115208847141, 2.64207988067597, 2.60400480800779, 2.64207988067597, 5942.340891986566], [1792868400, 2.60800421848558, 2.61924698104453, 2.59525718830185, 2.61115208847141, 1691.7400905680659], [1792864800, 2.61269207745775, 2.61822610699975, 2.58582916514881, 2.60800421848558, 2391.821961012465], [1792861200, 2.57704655234982, 2.61269207745775, 2.57025097507823, 2.61269207745775, 3137.8034366812835], [1792857600, 2.67457578204257, 2.68558386723832, 2.53905013240053, 2.57704655234982, 34329.144502558775], [1792854000, 2.78286824156834, 2.79435841866663, 2.56266531627695, 2.67457578204257, 63203.73449860504], [1792850400, 2.9141244175802, 2.97874955907558, 2.76895054188677, 2.78286824156834, 61343.31275583427], [1792846800, 2.74268818222871, 2.9499337546484, 2.71579033252446, 2.9141244175802, 58644.856847921204], [1792843200, 2.67668187369899, 2.74301869517495, 2.67668187369899, 2.74268818222871, 13819.613298415232], [1792839600, 2.56646179488517, 2.7044942642962, 2.53450564654376, 2.67668187369899, 43196.40555487004], [1792836000, 2.48077395583877, 2.59356262221413, 2.47290234327701, 2.56646179488517, 29657.276611053854], [1792832400, 2.62159838399415, 2.624848779385, 2.3397410895883, 2.48077395583877, 91993.02507434826], [1792828800, 2.66262643429303, 2.69181462557086, 2.56314862350474, 2.62159838399415, 52647.34665910445], [1792825200, 2.5847061332915, 2.77294186209496, 2.5847061332915, 2.66262643429303, 77929.70289703856], [1792821600, 2.96372078094775, 2.98788902987546, 2.58462113646303, 2.5847061332915, 93561.06395771932], [1792818000, 2.79084380810283, 2.98525857258422, 2.77604838516651, 2.96372078094775, 81623.21407118006], [1792814400, 2.79387655507285, 2.86286640589219, 2.72317228818567, 2.79084380810283, 122433.40030388121], [1792810800, 2.74097947516897, 2.91094445222393, 2.70335939672558, 2.79387655507285, 131210.88430626146], [1792807200, 2.7496446355136, 2.79944856377284, 2.15899523437256, 2.74097947516897, 495359.6712351383], [1792803600, 2.45611449617077, 3.24833226619403, 2.31290307332754, 2.7496446355136, 484946.5181836065], [1792800000, 2.1206371886479, 2.46562054281137, 2.10976602234122, 2.45611449617077, 117804.01736230445], [1792796400, 1.87210916464793, 2.1206371886479, 1.86038400390306, 2.1206371886479, 64167.3352313952], [1792792800, 1.81420743268884, 1.87453409205749, 1.80383602903337, 1.87210916464793, 17356.36633328105], [1792789200, 1.81483618922572, 1.82182748212488, 1.79619295965606, 1.81420743268884, 6641.944771634386], [1792785600, 1.78412714645596, 1.81924877514208, 1.77750455578061, 1.81483618922572, 8767.412137002346], [1792782000, 1.74471604792218, 1.79505261408498, 1.74471604792218, 1.78412714645596, 10584.23546230949], [1792778400, 1.68073796289332, 1.76052866672899, 1.67687156060177, 1.74471604792218, 33005.70138302564], [1792774800, 1.55191885540019, 1.68159771189823, 1.54420490779295, 1.68073796289332, 39101.19259752197], [1792771200, 1.46600719823435, 1.55191885540019, 1.45577206379308, 1.55191885540019, 28471.631535313853], [1792767600, 1.42318721820884, 1.47795439012611, 1.40935162066092, 1.46600719823435, 24232.32404797022], [1792764000, 1.36551802180736, 1.4255324656744, 1.35918522149808, 1.42318721820884, 17096.201941648927], [1792760400, 1.35453924529088, 1.36992242338034, 1.33839139253247, 1.36551802180736, 18300.0452569798], [1792756800, 1.47012706583531, 1.49621868162148, 1.3384086068107, 1.35453924529088, 73270.58204437658], [1792753200, 1.39921562013221, 1.49596142730798, 1.39418948309931, 1.47012706583531, 53758.1629545972], [1792749600, 1.36980595627637, 1.41187218860467, 1.35790170905974, 1.39921562013221, 42221.67855388192], [1792746000, 1.22844873235674, 1.37211502047878, 1.21540262496936, 1.36980595627637, 52992.80704641497], [1792742400, 1.30035167533752, 1.31214534258099, 1.14154117778236, 1.22844873235674, 101540.84529210748], [1792738800, 1.13439807949561, 1.3065511302565, 1.13439807949561, 1.30035167533752, 70606.65807381444], [1792735200, 1.04634792403397, 1.14409041222773, 1.04378798233094, 1.13439807949561, 42994.068179271184], [1792731600, 0.987750844750896, 1.05007877132857, 0.971042668492174, 1.04634792403397, 55001.34063261039], [1792728000, 0.981656812314806, 0.994792292441233, 0.961265970644779, 0.987750844750896, 20612.514241458317], [1792724400, 0.977601868044056, 1.00398641760237, 0.96990829416663, 0.981656812314806, 34046.085182505674], [1792720800, 0.860382804628248, 0.977601868044056, 0.859686253586582, 0.977601868044056, 57782.75819624109], [1792717200, 0.84603338816861, 0.864380949275926, 0.835112939038878, 0.860382804628248, 10910.583480832876], [1792713600, 0.839265673127471, 0.848060251144417, 0.83128235824219, 0.84603338816861, 10921.566969653028], [1792710000, 0.810714289724159, 0.839363890136053, 0.810714289724159, 0.839265673127471, 11301.471713571618], [1792706400, 0.807266056881266, 0.815985074528607, 0.807038781926286, 0.810714289724159, 2396.8882922937323], [1792702800, 0.793017874617378, 0.810112691305151, 0.793017874617378, 0.807266056881266, 5918.810346272402], [1792699200, 0.786429043171794, 0.793017874617378, 0.780255024099138, 0.793017874617378, 3089.153668411901], [1792695600, 0.804865192270245, 0.82157176724954, 0.783625064024373, 0.786429043171794, 20421.86690594547], [1792692000, 0.802231728004907, 0.809396742116968, 0.79776467253191, 0.804865192270245, 1635.3669969011708]], "live": false, "updated": "2026-10-25"}</script>
+  </section>
+
+  <!-- ============ 打赏位（布道支持） ============ -->
+  <section class="wrap" id="donate" style="padding-top:4px">
+    <div class="donate fade-up">
+      <div class="donate-head">展示为布道而作 · 盘古LYX布道者</div>
+      <div class="donate-body">
+        这份「玩法说明书」为帮助更多用户看懂 LYX 黑洞生态而制作，制作不易。
+        若它帮到了你或你的团队，欢迎自愿<span class="tip-pulse">打赏 LYX</span> 支持持续更新，
+        你的每一份善意都会变成下一版更细致、更完整的攻略。
+      </div>
+      <div class="donate-addr">
+        <span class="txt">0x083B573563859981Df973328663191931282b38C</span>
+        <button class="cpy donate-btn" data-copy="0x083B573563859981Df973328663191931282b38C">📋 一键复制</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 会员分布 ============ -->
+  <section class="wrap sec" id="members">
+    <div class="sec-head fade-up"><span class="sec-step">MEMBERS</span><h2 class="sec-title">会员分布 · 实时买入地图</h2></div>
+    <div class="mem-map fade-up" id="mem-map">
+      <div class="mem-world" id="mem-world"></div>
+      <div class="mem-feed" id="m-feed"></div>
+    </div>
+    <div class="comm-wrap fade-up">
+      <div class="comm-head">
+        <div style="font-size:19px;font-weight:700;color:var(--text-strong)">🗂️ 50 个社区 · 人数占比</div>
+        <div class="tag-row" style="margin:8px 0 0">
+          <span class="chip gold">共创社区 20%</span>
+          <span class="chip" style="border-color:rgba(167,139,250,.45);color:#a78bfa;background:rgba(167,139,250,.08)">盘古社区 30%</span>
+          <span class="chip">其他社区 50%（随机）</span>
+        </div>
+      </div>
+      <div class="comm-list" id="comm-list"></div>
+      <button class="btn ghost" id="comm-more" style="width:100%;margin-top:6px">展开全部 50 个社区</button>
+    </div>
+  </section>
+
+  <!-- ============ 玩法总览 ============ -->
+  <section class="wrap sec" id="overview">
+    <div class="sec-head fade-up"><span class="sec-step">总览</span><h2 class="sec-title">玩法全流程 · 四步</h2></div>
+    <p class="sec-sub fade-up">所有玩法的参与方式都是同一个动作：<b style="color:var(--text)">把 LYX 转进对应的黑洞地址</b>。转账即下注，黑洞即合约。</p>
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="n">1</div>
+        <div><div class="t">🪙 你得先买 LYX</div>
+        <div class="d">在 LYX/USDT 交易对买入。成交即扣 <b>3% 买税</b>（流向推荐返利池 0x888），你实际到手 97%。</div></div>
+      </div>
+      <div class="step fade-up">
+        <div class="n">2</div>
+        <div><div class="t">⚫ 验证各种黑洞玩法</div>
+        <div class="d">盲盒 1.6 倍出局、大乐透、大逃杀、单双竞猜、1.5 倍金本位出局——向对应黑洞地址转账即参与，赔付自动结算回钱包。</div></div>
+      </div>
+      <div class="step fade-up">
+        <div class="n">3</div>
+        <div><div class="t">🌍 复制你的市场</div>
+        <div class="d">发展下家组成团队。下家玩盲盒、大逃杀、买卖，你按代数持续收分红，最高绑定 <b>5 代</b>。</div></div>
+      </div>
+      <div class="step fade-up">
+        <div class="n">4</div>
+        <div><div class="t">✈️ 空投绑定你的团队</div>
+        <div class="d">向任何人空投 <b>&gt;0.1 USDT 价值的 LYX</b> 即完成绑定。<b>一次绑定，全局绑定</b>——所有玩法分红关系一次生效。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 四大玩法 ============ -->
+  <section class="wrap sec" id="games">
+    <div class="sec-head fade-up"><span class="sec-step">玩法 1</span><h2 class="sec-title">四大共创玩法 · 详细说明</h2></div>
+    <p class="sec-sub fade-up">以下机制按项目规则与 BSC 链上实测数据整理，余额为区块 ≈ 129,634,000 时快照。</p>
+
+    <!-- 盲盒 -->
+    <div class="game fade-up">
+      <div class="game-head">
+        <div class="game-ico">🎁</div>
+        <div><div class="game-name">盲盒 · 1.6 倍出局</div>
+        <div class="game-tags"><span class="chip gold">共创生态</span><span class="chip">黑洞 0x0000…dEaD</span></div></div>
+      </div>
+      <div class="game-body">
+        <div class="intro">向盲盒黑洞转入 LYX，即进入 <b>1.6 倍出局队列</b>，按投入先后顺序排队结算——先投入者由后投入者接棒，队列就是生命线。</div>
+        <div class="rows">
+          <div class="row"><span class="k">入场方式</span><span class="v">向 0x…dEaD 转入 LYX</span></div>
+          <div class="row"><span class="k">入池比例</span><span class="v">全额入池（链上实测）</span></div>
+          <div class="row"><span class="k">出局赔付</span><span class="v hl">×1.6 倍</span></div>
+          <div class="row"><span class="k">计价口径</span><span class="v">金本位（USDT）锁定价值 ×1.6，以 LYX 返还</span></div>
+          <div class="row"><span class="k">池内余额</span><span class="v gold"><span class='bal' data-bal='blindbox' data-f=''>9,021,417</span> LYX</span></div>
+        </div>
+        <div class="note"><b>要点：</b>投入时按当时 USDT 价值锁定，出局时按锁定的 1.6 倍折返 LYX。队列进度决定回款速度，排队期间币价波动由金本位锁价对冲。</div>
+      </div>
+    </div>
+
+    <!-- 大乐透 -->
+    <div class="game fade-up">
+      <div class="game-head">
+        <div class="game-ico">🎰</div>
+        <div><div class="game-name">大乐透</div>
+        <div class="game-tags"><span class="chip">共创链游</span><span class="chip">黑洞 0x0000…0008</span></div></div>
+      </div>
+      <div class="game-body">
+        <div class="intro">投注后开奖摇出 <b>3 个号码球</b>，按号码组合定赔付倍数。未中奖的投注沉淀为奖池，供后续开奖。</div>
+        <div class="rows">
+          <div class="row"><span class="k">入场方式</span><span class="v">向 0x…0008 转入 LYX</span></div>
+          <div class="row"><span class="k">入池比例</span><span class="v">投注额 10% 进入奖池（链上实测）</span></div>
+          <div class="row"><span class="k">三球同号</span><span class="v hl">×88</span></div>
+          <div class="row"><span class="k">两球同号</span><span class="v hl">×8</span></div>
+          <div class="row"><span class="k">全不同号</span><span class="v">×2</span></div>
+          <div class="row"><span class="k">奖池余额</span><span class="v gold"><span class='bal' data-bal='lottery' data-f=''>4,000,048</span> LYX</span></div>
+        </div>
+        <div class="note"><b>要点：</b>高倍档（×88 / ×8）吃的是奖池沉淀，×2 档是基础保底回报。长期期望取决于奖池注入速度。</div>
+      </div>
+    </div>
+
+    <!-- 大逃杀 -->
+    <div class="game fade-up">
+      <div class="game-head">
+        <div class="game-ico">⚔️</div>
+        <div><div class="game-name">大逃杀</div>
+        <div class="game-tags"><span class="chip">共创链游</span><span class="chip">黑洞 0x0001 ~ 0x0004</span></div></div>
+      </div>
+      <div class="game-body">
+        <div class="intro">四间独立房间，转入对应房间黑洞即入场参战。<b>每轮随机淘汰</b>，幸存者瓜分房间奖池。房间池彼此独立。</div>
+        <div class="rows">
+          <div class="row"><span class="k">入场方式</span><span class="v">向 0x…0001 ~ 0x…0004 转入 LYX</span></div>
+          <div class="row"><span class="k">入池比例</span><span class="v">全额入池（链上实测）</span></div>
+          <div class="row"><span class="k">结算方式</span><span class="v">每轮淘汰，幸存者瓜分房间奖池</span></div>
+          <div class="row"><span class="k">1 号房池</span><span class="v gold"><span class='bal' data-bal='room1' data-f=''>7,997,835</span> LYX</span></div>
+          <div class="row"><span class="k">2 号房池</span><span class="v gold"><span class='bal' data-bal='room2' data-f=''>7,001,380</span> LYX</span></div>
+          <div class="row"><span class="k">3 号房池</span><span class="v gold"><span class='bal' data-bal='room3' data-f=''>5,999,609</span> LYX</span></div>
+          <div class="row"><span class="k">4 号房池</span><span class="v gold"><span class='bal' data-bal='room4' data-f=''>5,000,316</span> LYX</span></div>
+        </div>
+        <div class="note"><b>要点：</b>四间房池按 <span class='bal' data-bal='room1' data-f='wan'>800</span>/<span class='bal' data-bal='room2' data-f='wan'>700</span>/<span class='bal' data-bal='room3' data-f='wan'>600</span>/<span class='bal' data-bal='room4' data-f='wan'>500</span> 万递减预注。房间人数与淘汰节奏决定单局瓜分效率，房池越大单局奖越厚。</div>
+      </div>
+    </div>
+
+    <!-- 单双 -->
+    <div class="game fade-up">
+      <div class="game-head">
+        <div class="game-ico">🎲</div>
+        <div><div class="game-name">盲盒竞猜 · 单双</div>
+        <div class="game-tags"><span class="chip">共创链游</span><span class="chip">竞猜玩法</span></div></div>
+      </div>
+      <div class="game-body">
+        <div class="intro">盲盒开出神秘数字，投注「单」或「双」。开盒即揭晓，无排队等待——最直接的玩法。</div>
+        <div class="rows">
+          <div class="row"><span class="k">参与方式</span><span class="v">押注单 / 双</span></div>
+          <div class="row"><span class="k">猜中赔付</span><span class="v hl">×1.98（含本金）</span></div>
+          <div class="row"><span class="k">猜错处理</span><span class="v">投注进入奖池</span></div>
+          <div class="row"><span class="k">开奖节奏</span><span class="v">开盒即揭晓，无队列</span></div>
+        </div>
+        <div class="note"><b>要点：</b>赔付倍数以玩法端实际展示为准。单双是节奏最快的玩法，适合做团队分红流水（下家高频参与 → 上家高频分红）。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 1.5 倍出局 ============ -->
+  <section class="wrap sec" id="exit">
+    <div class="sec-head fade-up"><span class="sec-step">玩法 2</span><h2 class="sec-title">1.5 倍金本位出局</h2></div>
+    <p class="sec-sub fade-up">整个生态的「主菜」：投入 LYX 进入出局队列，锁定 USDT 价值，排队等 1.5 倍回吐。</p>
+    <div class="game fade-up">
+      <div class="game-head">
+        <div class="game-ico">💰</div>
+        <div><div class="game-name">1.5 倍金本位出局</div>
+        <div class="game-tags"><span class="chip gold">出局队列</span><span class="chip">黑洞 0x0000…0018</span></div></div>
+      </div>
+      <div class="game-body">
+        <div class="intro">投入时按 <b>USDT（TWAP 预言机）锁定价值</b>，出局时按锁定价值的 1.5 倍、以当前价格折返 LYX。队列按投入先后顺序结算。</div>
+        <div class="rows">
+          <div class="row"><span class="k">入场方式</span><span class="v">向 0x…0018 转入 LYX</span></div>
+          <div class="row"><span class="k">锁定价值</span><span class="v">投入时 LYX 的 USDT 价值</span></div>
+          <div class="row"><span class="k">出局赔付</span><span class="v hl">锁定价值 ×1.5（按当前价折返 LYX）</span></div>
+          <div class="row"><span class="k">出局资金来自</span><span class="v">后进玩家投入 + 0x99 总储备</span></div>
+          <div class="row"><span class="k">出局池余额</span><span class="v gold"><span class='bal' data-bal='exit' data-f=''>3,550,042</span> LYX</span></div>
+          <div class="row"><span class="k">0x99 总储备</span><span class="v gold"><span class='bal' data-bal='reserve' data-f=''>947,114,035</span> LYX（<span class='pct' data-pct='reserve'>94.7</span>% 供应）</span></div>
+        </div>
+        <div class="note"><b>要点：</b>金本位锁价解决「排队期间币价跌了怎么办」——出局看的是 USDT 价值，不看 LYX 数量。队列结算依赖持续的新增投入与总储备补充。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 金本位与税收 ============ -->
+  <section class="wrap sec" id="gold">
+    <div class="sec-head fade-up"><span class="sec-step">机制</span><h2 class="sec-title">金本位与税收</h2></div>
+    <p class="sec-sub fade-up">所有出局赔付的「金」指的是 USDT。税是生态运转的燃料。</p>
+    <div class="mech fade-up">
+      <div class="mt">🏆 金本位 = USDT 锚定</div>
+      <div class="md">价格源为 <b>LYX/USDT 交易对的 TWAP 预言机</b>（BSC USDT：0x55d398…7955）。投入即锁定 USDT 价值，出局按 USDT 价值 ×1.5 / ×1.6 结算，再按当下价格折返 LYX。</div>
+    </div>
+    <div class="mech fade-up">
+      <div class="mt">🧾 买卖税（链上实测 TaxPolicy 配置）</div>
+      <div class="md">买入税 <b>3%</b>、卖出税 <b>3%</b>，税收全部流向 <b>推荐返利池（0x888）</b>，用于五级推荐分红。</div>
+    </div>
+    <div class="mech fade-up">
+      <div class="mt">🗄️ 0x99 总储备的双重角色</div>
+      <div class="md">0x99 黑洞同时担任 <b>总储备</b>与<b>跟卖（FollowSell）来源</b>：出局队列缺钱时由它补充；市场抛压时它也可以同步出货。链上持有 <span class='bal' data-bal='reserve' data-f='yi'>9.47 亿</span> LYX，占总量 <span class='pct' data-pct='reserve'>94.7</span>%。</div>
+    </div>
+  </section>
+
+  <!-- ============ 五级推荐 ============ -->
+  <section class="wrap sec" id="referral">
+    <div class="sec-head fade-up"><span class="sec-step">分红</span><h2 class="sec-title">五级推荐 · 绑定即分红</h2></div>
+    <p class="sec-sub fade-up">空投 &gt;0.1 USDT 价值的 LYX 即完成绑定，一次绑定、全局绑定——下家的盲盒、大逃杀、买卖税、1.5 倍出局全部计入你的分红。</p>
+    <div class="game fade-up">
+      <div class="game-body" style="padding-top:16px">
+        <div class="share-list">
+          <div class="share"><span class="gen">一代</span><div class="bar"><i style="width:100%"></i></div><span class='pct'>30%</span></div>
+          <div class="share"><span class="gen">二代</span><div class="bar"><i style="width:83%"></i></div><span class='pct'>25%</span></div>
+          <div class="share"><span class="gen">三代</span><div class="bar"><i style="width:66%"></i></div><span class='pct'>20%</span></div>
+          <div class="share"><span class="gen">四代</span><div class="bar"><i style="width:50%"></i></div><span class='pct'>15%</span></div>
+          <div class="share"><span class="gen">五代</span><div class="bar"><i style="width:33%"></i></div><span class='pct'>10%</span></div>
+        </div>
+        <div class="rows">
+          <div class="row"><span class="k">绑定方式</span><span class="v">空投 &gt;0.1 USDT 价值 LYX（演示价 ≈ 41 LYX 起）</span></div>
+          <div class="row"><span class="k">绑定范围</span><span class="v">一次绑定，全局绑定</span></div>
+          <div class="row"><span class="k">分红来源</span><span class="v">盲盒 + 大逃杀 + 买卖税 + 1.5 倍出局</span></div>
+          <div class="row"><span class="k">推荐池余额</span><span class="v gold"><span class='bal' data-bal='referral' data-f=''>3,003,664</span> LYX（0x888）</span></div>
+        </div>
+        <div class="note"><b>要点：</b>五代分红是「团队深度」玩法——你的收入不只看你拉了多少人，更看团队整体玩得多深。单双这类高频玩法是团队流水的主要来源。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ POOLS 资金池（保留板块） ============ -->
+  <section class="wrap sec" id="pools">
+    <div class="sec-head fade-up"><span class="sec-step">POOLS</span><h2 class="sec-title">黑洞资金池 · 全图景</h2></div>
+    <p class="sec-sub fade-up">链上实测余额。中央黑洞吞吐一切：买入税 → 推荐池，玩法投入 → 各玩法池，出局赔付 ← 队列池与 0x99 总储备。</p>
+    <div class="pool-map fade-up" id="pool-map">
+      <svg class="pool-svg" id="pool-svg"></svg>
+      <div class="pool-center"><div class="disk"></div><div class="void"></div><div class="tag">LYX 黑洞</div></div>
+      <div class="pool-node" style="left:50%;top:8%" data-node="buy">
+        <div class="p-addr">买卖税 → 推荐池</div><div class="p-name">✈️ 推荐返利池</div><div class="p-bal"><span class='bal' data-bal='referral' data-f='M'>3M</span> LYX</div>
+      </div>
+      <div class="pool-node" style="left:17%;top:21%" data-node="blindbox">
+        <div class="p-addr">0x…dEaD</div><div class="p-name">🎁 盲盒池</div><div class="p-bal"><span class='bal' data-bal='blindbox' data-f='M'>9M</span> LYX</div>
+      </div>
+      <div class="pool-node" style="left:83%;top:19%" data-node="rooms">
+        <div class="p-addr">0x…0001 ~ 0004</div><div class="p-name">⚔️ 大逃杀四房</div><div class="p-bal"><span class='bal' data-bal='rooms' data-f='M'>26M</span> LYX</div>
+      </div>
+      <div class="pool-node" style="left:16%;top:56%" data-node="lottery">
+        <div class="p-addr">0x…0008</div><div class="p-name">🎰 大乐透池</div><div class="p-bal"><span class='bal' data-bal='lottery' data-f='M'>4M</span> LYX</div>
+      </div>
+      <div class="pool-node big" style="left:84%;top:57%" data-node="reserve">
+        <div class="p-addr">0x…0099 · <span class='pct' data-pct='reserve'>94.7</span>% 供应</div><div class="p-name">🗄️ 总储备 · 跟卖</div><div class="p-bal"><span class='bal' data-bal='reserve' data-f='M'>947.1M</span> LYX</div>
+      </div>
+      <div class="pool-node" style="left:24%;top:88%" data-node="exit">
+        <div class="p-addr">0x…0018</div><div class="p-name">💰 出局池</div><div class="p-bal"><span class='bal' data-bal='exit' data-f='M'>3.6M</span> LYX</div>
+      </div>
+      <div class="pool-node me" style="left:74%;top:89%" data-node="player">
+        <div class="p-addr">投入 / 回款</div><div class="p-name">🫵 你</div><div class="p-bal">玩家钱包</div>
+      </div>
+    </div>
+    <div class="pool-detail" id="pool-detail"></div>
+    <div class="pool-timeline">
+      <div class="pool-item big fade-up">
+        <div class="p-top"><span class="p-name">🗄️ 总储备 · 跟卖来源</span><span class="p-bal"><span class='bal' data-bal='reserve' data-f=''>947,114,035</span> LYX</span></div>
+        <div class="p-addr">0x0000…0099 · 占总供应 <span class='pct' data-pct='reserve'>94.7</span>%</div>
+        <div class="p-flow"><span class="out">出→</span> 补充出局队列 / 中奖赔付 &nbsp;<span class="sell">出→</span> 跟卖进入市场</div>
+      </div>
+      <div class="pool-item fade-up">
+        <div class="p-top"><span class="p-name">🎁 盲盒池</span><span class="p-bal"><span class='bal' data-bal='blindbox' data-f=''>9,021,417</span> LYX</span></div>
+        <div class="p-addr">0x0000…dEaD</div>
+        <div class="p-flow"><span class="in">入←</span> 盲盒投入 &nbsp;<span class="out">出→</span> 1.6 倍出局赔付</div>
+      </div>
+      <div class="pool-item fade-up">
+        <div class="p-top"><span class="p-name">⚔️ 大逃杀四房</span><span class="p-bal"><span class='bal' data-bal='rooms' data-f=''>25,999,140</span> LYX</span></div>
+        <div class="p-addr">0x0001 / 0002 / 0003 / 0004（<span class='bal' data-bal='room1' data-f='wan'>800</span>/<span class='bal' data-bal='room2' data-f='wan'>700</span>/<span class='bal' data-bal='room3' data-f='wan'>600</span>/<span class='bal' data-bal='room4' data-f='wan'>500</span> 万）</div>
+        <div class="p-flow"><span class="in">入←</span> 入场投入 &nbsp;<span class="out">出→</span> 幸存者瓜分</div>
+      </div>
+      <div class="pool-item fade-up">
+        <div class="p-top"><span class="p-name">🎰 大乐透池</span><span class="p-bal"><span class='bal' data-bal='lottery' data-f=''>4,000,048</span> LYX</span></div>
+        <div class="p-addr">0x0000…0008</div>
+        <div class="p-flow"><span class="in">入←</span> 投注额 10% &nbsp;<span class="out">出→</span> 中奖赔付</div>
+      </div>
+      <div class="pool-item fade-up">
+        <div class="p-top"><span class="p-name">💰 1.5 倍出局池</span><span class="p-bal"><span class='bal' data-bal='exit' data-f=''>3,550,042</span> LYX</span></div>
+        <div class="p-addr">0x0000…0018</div>
+        <div class="p-flow"><span class="in">入←</span> 队列投入 &nbsp;<span class="out">出→</span> 1.5 倍出局 &nbsp;<span class="in">入←</span> 0x99 补充</div>
+      </div>
+      <div class="pool-item fade-up">
+        <div class="p-top"><span class="p-name">✈️ 推荐返利池</span><span class="p-bal"><span class='bal' data-bal='referral' data-f=''>3,003,664</span> LYX</span></div>
+        <div class="p-addr">0x0000…0888</div>
+        <div class="p-flow"><span class="tax">入←</span> 买卖税 3%+3% &nbsp;<span class="out">出→</span> 五代分红（30/25/20/15/10%）</div>
+      </div>
+    </div>
+    <div class="legend fade-up">
+      <span><i class="ldot" style="background:#fcd535"></i>玩家投入</span>
+      <span><i class="ldot" style="background:#0ecb81"></i>赔付/中奖</span>
+      <span><i class="ldot" style="background:#8ab4ff"></i>买卖税</span>
+      <span><i class="ldot" style="background:#f6465d"></i>储备/跟卖</span>
+    </div>
+  </section>
+
+  <!-- ============ CHAIN 地址簿（保留板块） ============ -->
+  <section class="wrap sec" id="chain">
+    <div class="sec-head fade-up"><span class="sec-step">CHAIN</span><h2 class="sec-title">链上实况 · 黑洞地址簿</h2></div>
+    <p class="sec-sub fade-up">以下地址与余额均为 BSC 链上实测（数据更新于 <span id="data-updated">2026-10-25</span>，区块 ≈ <span id="data-block">129,652,119</span>）。点击「复制」保存地址。</p>
+    <div class="addr-list">
+      <div class="addr fade-up">
+        <div class="a-top"><span class="a-name">🪙 LYX 代币</span><span class="a-bal">10 亿 LYX</span></div>
+        <div class="a-func">玩法代币 · BSC 链</div>
+        <div class="a-addr"><span class="txt">0xaa4de3b6196ea6d1b5c4ed3980ed908888888888</span><button class="cpy" data-copy="0xaa4de3b6196ea6d1b5c4ed3980ed908888888888">复制</button></div>
+      </div>
+      <div class="addr fade-up">
+        <div class="a-top"><span class="a-name">🎁 盲盒黑洞</span><span class="a-bal"><span class='bal' data-bal='blindbox' data-f=''>9,021,417</span> LYX</span></div>
+        <div class="a-func">盲盒 1.6 倍出局</div>
+        <div class="a-addr"><span class="txt">0x000000000000000000000000000000000000dEaD</span><button class="cpy" data-copy="0x000000000000000000000000000000000000dEaD">复制</button></div>
+      </div>
+      <div class="addr fade-up">
+        <div class="a-top"><span class="a-name">🎰 大乐透黑洞</span><span class="a-bal"><span class='bal' data-bal='lottery' data-f=''>4,000,048</span> LYX</span></div>
+        <div class="a-func">大乐透奖池</div>
+        <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000008</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000008">复制</button></div>
+      </div>
+      <div class="addr fade-up">
+        <div class="a-top"><span class="a-name">💰 出局黑洞</span><span class="a-bal"><span class='bal' data-bal='exit' data-f=''>3,550,042</span> LYX</span></div>
+        <div class="a-func">1.5 倍金本位出局队列</div>
+        <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000018</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000018">复制</button></div>
+      </div>
+      <div class="addr fade-up">
+        <div class="a-top"><span class="a-name">⚔️ 大逃杀 1 号房</span><span class="a-bal"><span class='bal' data-bal='room1' data-f=''>7,997,835</span> LYX</span></div>
+        <div class="a-func">大逃杀房间 · 全额入池</div>
+        <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000001</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000001">复制</button></div>
+      </div>
+      <div class="addr fade-up">
+        <div class="a-top"><span class="a-name">⚔️ 大逃杀 2 号房</span><span class="a-bal"><span class='bal' data-bal='room2' data-f=''>7,001,380</span> LYX</span></div>
+        <div class="a-func">大逃杀房间 · 全额入池</div>
+        <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000002</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000002">复制</button></div>
+      </div>
+      <div class="addr fade-up">
+        <div class="a-top"><span class="a-name">⚔️ 大逃杀 3 号房</span><span class="a-bal"><span class='bal' data-bal='room3' data-f=''>5,999,609</span> LYX</span></div>
+        <div class="a-func">大逃杀房间 · 全额入池</div>
+        <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000003</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000003">复制</button></div>
+      </div>
+      <div class="addr fade-up">
+        <div class="a-top"><span class="a-name">⚔️ 大逃杀 4 号房</span><span class="a-bal"><span class='bal' data-bal='room4' data-f=''>5,000,316</span> LYX</span></div>
+        <div class="a-func">大逃杀房间 · 全额入池</div>
+        <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000004</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000004">复制</button></div>
+      </div>
+      <div class="addr fade-up">
+        <div class="a-top"><span class="a-name">🗄️ 总储备黑洞</span><span class="a-bal"><span class='bal' data-bal='reserve' data-f=''>947,114,035</span> LYX</span></div>
+        <div class="a-func">总储备 · 跟卖来源（<span class='pct' data-pct='reserve'>94.7</span>% 供应）</div>
+        <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000099</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000099">复制</button></div>
+      </div>
+      <div class="addr fade-up">
+        <div class="a-top"><span class="a-name">✈️ 推荐返利黑洞</span><span class="a-bal"><span class='bal' data-bal='referral' data-f=''>3,003,664</span> LYX</span></div>
+        <div class="a-func">五级推荐分红池</div>
+        <div class="a-addr"><span class="txt">0x0000000000000000000000000000000000000888</span><button class="cpy" data-copy="0x0000000000000000000000000000000000000888">复制</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    本页面为 LYX 黑洞生态的<b>玩法机制说明</b>，机制按项目规则与 BSC 链上实测数据整理（数据更新于 <span id="data-updated">2026-10-25</span>，区块 ≈ <span id="data-block">129,652,119</span>），
+    单双赔付等个别参数以玩法端实际展示为准。仅供学习了解玩法逻辑，不构成任何投资建议。
+  </div>
+</footer>
+
+<script>
+/* 轻量渐进增强：复制地址 + 锚点高亮。内容本身为纯静态，无 JS 也可完整阅读。 */
+(function () {
+  "use strict";
+  /* 复制地址 */
+  document.querySelectorAll(".cpy[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var txt = b.getAttribute("data-copy");
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(function () {
+          b.textContent = "已复制";
+          setTimeout(function () { b.textContent = "复制"; }, 1500);
+        });
+      } else {
+        b.textContent = "长按复制";
+        setTimeout(function () { b.textContent = "复制"; }, 1500);
+      }
+    });
+  });
+  /* 导航高亮 */
+  var links = document.querySelectorAll("#nav a");
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute("href").slice(1)] = a; });
+  var sections = [].slice.call(document.querySelectorAll("main section[id]"));
+  function onScroll() {
+    var y = window.scrollY + 90;
+    var cur = sections[0] && sections[0].id;
+    sections.forEach(function (s) { if (s.offsetTop <= y) cur = s.id; });
+    links.forEach(function (a) { a.classList.remove("on"); });
+    if (map[cur]) map[cur].classList.add("on");
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+})();
+
+/* POOLS 动态全图景：中央黑洞 + 节点 + 流线动画 + 点按详情 */
+(function () {
+  "use strict";
+  var map = document.getElementById("pool-map");
+  if (!map) return;
+  var svg = document.getElementById("pool-svg");
+  var NS = "http://www.w3.org/2000/svg";
+  var paths = [
+    { from: "player", to: "blindbox", color: "#fcd535" },
+    { from: "blindbox", to: "player", color: "#0ecb81" },
+    { from: "player", to: "lottery", color: "#fcd535" },
+    { from: "lottery", to: "player", color: "#0ecb81" },
+    { from: "player", to: "rooms", color: "#fcd535" },
+    { from: "rooms", to: "player", color: "#0ecb81" },
+    { from: "player", to: "exit", color: "#fcd535" },
+    { from: "exit", to: "player", color: "#0ecb81" },
+    { from: "buy", to: "player", color: "#8ab4ff" },
+    { from: "reserve", to: "exit", color: "#f6465d" },
+    { from: "reserve", to: "player", color: "#f6465d" }
+  ];
+  var detail = {
+    buy: { n: "✈️ 推荐返利池（0x…0888）", a: "0x0000000000000000000000000000000000000888",
+      f: "流入：买卖税 3%+3% · 流出：五代分红 30/25/20/15/10% · 池内 <span class='bal' data-bal='referral' data-f=''>3,003,664</span> LYX" },
+    blindbox: { n: "🎁 盲盒池（0x…dEaD）", a: "0x000000000000000000000000000000000000dEaD",
+      f: "流入：盲盒投入（全额入池） · 流出：1.6 倍出局赔付 · 池内 <span class='bal' data-bal='blindbox' data-f=''>9,021,417</span> LYX" },
+    rooms: { n: "⚔️ 大逃杀四房（0x…0001 ~ 0004）", a: "0x0000000000000000000000000000000000000001 ~ 0x0000000000000000000000000000000000000004",
+      f: "流入：入场投入（全额入池） · 流出：幸存者瓜分 · 四房合计 <span class='bal' data-bal='rooms' data-f=''>25,999,140</span> LYX（<span class='bal' data-bal='room1' data-f='wan'>800</span>/<span class='bal' data-bal='room2' data-f='wan'>700</span>/<span class='bal' data-bal='room3' data-f='wan'>600</span>/<span class='bal' data-bal='room4' data-f='wan'>500</span> 万）" },
+    lottery: { n: "🎰 大乐透池（0x…0008）", a: "0x0000000000000000000000000000000000000008",
+      f: "流入：投注额 10% · 流出：中奖赔付（×88 / ×8 / ×2） · 池内 <span class='bal' data-bal='lottery' data-f=''>4,000,048</span> LYX" },
+    reserve: { n: "🗄️ 总储备 · 跟卖（0x…0099）", a: "0x0000000000000000000000000000000000000099",
+      f: "流入：初始分配与玩法沉淀 · 流出：补充出局队列、跟卖回市场 · 池内 <span class='bal' data-bal='reserve' data-f=''>947,114,035</span> LYX（占总供应 <span class='pct' data-pct='reserve'>94.7</span>%）" },
+    exit: { n: "💰 1.5 倍出局池（0x…0018）", a: "0x0000000000000000000000000000000000000018",
+      f: "流入：队列投入 + 0x99 总储备补充 · 流出：1.5 倍金本位出局 · 池内 <span class='bal' data-bal='exit' data-f=''>3,550,042</span> LYX" },
+    player: { n: "🫵 你的钱包", a: "玩法入口 · 所有玩法围绕它运转",
+      f: "投入起点与赔付终点：买入 LYX → 转黑洞下注 → 出局/中奖/分红回吐钱包" }
+  };
+  function pos(node) {
+    var r = node.getBoundingClientRect(), m = map.getBoundingClientRect();
+    return { x: r.left - m.left + r.width / 2, y: r.top - m.top + r.height / 2 };
+  }
+  function draw() {
+    svg.innerHTML = "";
+    var nodes = {};
+    map.querySelectorAll(".pool-node").forEach(function (n) { nodes[n.dataset.node] = n; });
+    paths.forEach(function (p, i) {
+      if (!nodes[p.from] || !nodes[p.to]) return;
+      var a = pos(nodes[p.from]), b = pos(nodes[p.to]);
+      var mx = (a.x + b.x) / 2, my = Math.min(a.y, b.y) - 46;
+      var d = "M " + a.x + " " + a.y + " Q " + mx + " " + my + " " + b.x + " " + b.y;
+      var path = document.createElementNS(NS, "path");
+      path.setAttribute("d", d); path.setAttribute("fill", "none");
+      path.setAttribute("stroke", p.color); path.setAttribute("stroke-opacity", ".32");
+      path.setAttribute("stroke-width", "1.4"); path.setAttribute("stroke-dasharray", "5 6");
+      var anim = document.createElementNS(NS, "animate");
+      anim.setAttribute("attributeName", "stroke-dashoffset");
+      anim.setAttribute("from", "22"); anim.setAttribute("to", "0");
+      anim.setAttribute("dur", (1.2 + (i % 3) * 0.4) + "s");
+      anim.setAttribute("repeatCount", "indefinite");
+      path.appendChild(anim);
+      svg.appendChild(path);
+      var dot = document.createElementNS(NS, "circle");
+      dot.setAttribute("r", "2.8"); dot.setAttribute("fill", p.color);
+      var m = document.createElementNS(NS, "animateMotion");
+      m.setAttribute("dur", (1.6 + (i % 4) * 0.35) + "s");
+      m.setAttribute("repeatCount", "indefinite");
+      m.setAttribute("path", d);
+      dot.appendChild(m);
+      svg.appendChild(dot);
+    });
+  }
+  function showDetail(node) {
+    var d = detail[node.dataset.node];
+    var box = document.getElementById("pool-detail");
+    if (!d) { box.classList.remove("show"); return; }
+    box.innerHTML = '<div class="d-name">' + d.n + '</div><div class="d-addr">' + d.a + '</div><div class="d-flow">' + d.f + "</div>";
+    box.classList.add("show");
+    map.querySelectorAll(".pool-node").forEach(function (n) { n.classList.remove("on"); });
+    node.classList.add("on");
+  }
+  map.querySelectorAll(".pool-node").forEach(function (n) {
+    n.addEventListener("click", function () { showDetail(n); });
+  });
+  draw();
+  window.addEventListener("resize", draw);
+  setTimeout(draw, 400);
+  setTimeout(draw, 1200);
+})();
+
+/* K线行情：GeckoTerminal 实时 + 每日快照兜底 */
+(function () {
+  "use strict";
+  var POOL = "0x973a1f210ff73590fe9b6d5b12a06eccce9690a0";
+  var snapEl = document.getElementById("lyx-snap");
+  var SNAP = null;
+  if (snapEl) { try { SNAP = JSON.parse(snapEl.textContent); } catch (e) { SNAP = null; } }
+  function fmtPrice(v) {
+    if (v == null || isNaN(v)) return "--";
+    if (v >= 100) return v.toLocaleString("en-US", { maximumFractionDigits: 0 });
+    if (v >= 1) return v.toFixed(2);
+    if (v >= 0.01) return v.toFixed(4);
+    return v.toPrecision(3);
+  }
+  function fmtUsd(v) {
+    if (v == null || isNaN(v)) return "--";
+    if (v >= 1e9) return (v / 1e9).toFixed(2) + "B";
+    if (v >= 1e6) return (v / 1e6).toFixed(2) + "M";
+    if (v >= 1e3) return (v / 1e3).toFixed(1) + "K";
+    return v.toFixed(0);
+  }
+  function render(data) {
+    var candles = data.candles;
+    var p = document.getElementById("ck-price");
+    var live = document.getElementById("ck-live");
+    if (!candles || !candles.length) {
+      p.textContent = "--"; live.textContent = "K线数据暂不可用";
+      return;
+    }
+    p.textContent = fmtPrice(data.price);
+    var chg = data.changeH24;
+    var chgEl = document.getElementById("ck-chg");
+    if (chg == null || isNaN(chg)) { chgEl.textContent = "--"; chgEl.className = "ck-chg"; }
+    else {
+      var up = chg >= 0;
+      chgEl.textContent = (up ? "+" : "") + chg.toFixed(2) + "%";
+      chgEl.className = "ck-chg " + (up ? "up" : "down");
+    }
+    document.getElementById("ck-vol").textContent = "$" + fmtUsd(data.volumeH24);
+    document.getElementById("ck-liq").textContent = "$" + fmtUsd(data.liquidity);
+    live.textContent = data.live ? "实时 · 60s 自动刷新" : "每日快照";
+    document.getElementById("ck-time").textContent = data.updated ? "更新 " + data.updated : "";
+    drawCandles(candles);
+  }
+  function drawCandles(cs) {
+    var box = document.getElementById("ck-box");
+    box.innerHTML = "";
+    var W = box.clientWidth || 320, H = box.clientHeight || 230;
+    var padL = 6, padR = 46, padT = 8, padB = 20;
+    var lo = Math.min.apply(null, cs.map(function (c) { return c[3]; }));
+    var hi = Math.max.apply(null, cs.map(function (c) { return c[2]; }));
+    if (hi === lo) { hi = lo * 1.02 || 1; lo = lo * 0.98; }
+    var iw = (W - padL - padR) / cs.length, bw = Math.max(1.5, iw * 0.62);
+    function y(v) { return padT + (hi - v) / (hi - lo) * (H - padT - padB); }
+    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">';
+    var rows = 4;
+    for (var i = 0; i <= rows; i++) {
+      var pv = hi - (hi - lo) * i / rows, yy = y(pv);
+      svg += '<line x1="' + padL + '" y1="' + yy + '" x2="' + (W - padR) + '" y2="' + yy + '" stroke="#2b3139" stroke-width="1" stroke-dasharray="3 4"/>';
+      svg += '<text x="' + (W - padR + 6) + '" y="' + (yy + 3) + '" fill="#707a8a" font-size="9" font-family="Menlo,monospace">' + fmtPrice(pv) + '</text>';
+    }
+    cs.forEach(function (c, idx) {
+      var x = padL + idx * iw + iw / 2;
+      var o = c[1], h = c[2], l = c[3], cl = c[4];
+      var up = cl >= o, color = up ? "#0ecb81" : "#f6465d";
+      svg += '<line x1="' + x + '" y1="' + y(h) + '" x2="' + x + '" y2="' + y(l) + '" stroke="' + color + '" stroke-width="1"/>';
+      var by = Math.min(y(o), y(cl)), bh = Math.max(1, Math.abs(y(o) - y(cl)));
+      svg += '<rect x="' + (x - bw / 2) + '" y="' + by + '" width="' + bw + '" height="' + bh + '" fill="' + color + '" opacity="0.9"/>';
+      svg += '<rect x="' + (x - iw / 2) + '" y="0" width="' + iw + '" height="' + H + '" fill="transparent" data-i="' + idx + '"/>';
+    });
+    function tf(d) { return (d.getMonth() + 1) + "/" + d.getDate() + " " + (d.getHours() < 10 ? "0" : "") + d.getHours() + ":00"; }
+    var t0 = new Date(cs[0][0] * 1000), t1 = new Date(cs[cs.length - 1][0] * 1000);
+    svg += '<text x="' + padL + '" y="' + (H - 6) + '" fill="#707a8a" font-size="9" font-family="Menlo,monospace">' + tf(t0) + '</text>';
+    svg += '<text x="' + (W - padR) + '" y="' + (H - 6) + '" fill="#707a8a" font-size="9" font-family="Menlo,monospace" text-anchor="end">' + tf(t1) + '</text>';
+    svg += "</svg>";
+    box.innerHTML = svg;
+    var tip = document.createElement("div");
+    tip.className = "ck-tip";
+    box.appendChild(tip);
+    var rects = box.querySelectorAll("rect[data-i]");
+    rects.forEach(function (r) {
+      r.addEventListener("pointermove", function (ev) {
+        var c = cs[+r.getAttribute("data-i")];
+        if (!c) return;
+        var d = new Date(c[0] * 1000);
+        tip.innerHTML = "<b>" + tf(d) + "</b><br>开 " + fmtPrice(c[1]) + " · 收 " + fmtPrice(c[4]) + "<br>高 " + fmtPrice(c[2]) + " · 低 " + fmtPrice(c[3]) + "<br>量 $" + fmtUsd(c[5]);
+        var bx = box.getBoundingClientRect();
+        var tx = ev.clientX - bx.left, ty = ev.clientY - bx.top;
+        tip.style.display = "block";
+        tip.style.left = Math.max(4, Math.min(bx.width - 160, tx + 12)) + "px";
+        tip.style.top = Math.max(4, ty - 70) + "px";
+      });
+      r.addEventListener("pointerleave", function () { tip.style.display = "none"; });
+    });
+  }
+  function fetchLive() {
+    var ohlcvUrl = "https://api.geckoterminal.com/api/v2/networks/bsc/pools/" + POOL + "/ohlcv/hour?aggregate=1&limit=60&currency=usd";
+    fetch(ohlcvUrl).then(function (r) { return r.json(); }).then(function (d) {
+      var list = d && d.data && d.data.attributes && d.data.attributes.ohlcv_list;
+      if (!list || !list.length) throw new Error("empty");
+      var now = new Date();
+      var base = { price: list[list.length - 1][4], changeH24: null, volumeH24: null, liquidity: null,
+        candles: list, live: true, updated: (now.getHours() < 10 ? "0" : "") + now.getHours() + ":" + (now.getMinutes() < 10 ? "0" : "") + now.getMinutes() };
+      return fetch("https://api.dexscreener.com/latest/dex/pairs/bsc/" + POOL)
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          var pr = j && j.pairs && j.pairs[0];
+          if (pr) {
+            base.changeH24 = pr.priceChange ? pr.priceChange.h24 : null;
+            base.volumeH24 = pr.volume ? pr.volume.h24 : null;
+            base.liquidity = pr.liquidity ? pr.liquidity.usd : null;
+            base.price = parseFloat(pr.priceUsd) || base.price;
+          }
+          return base;
+        }).catch(function () { return base; });
+    }).then(function (data) {
+      render(data);
+      setTimeout(fetchLive, 60000);
+    }).catch(function () {
+      if (SNAP) { SNAP.live = false; render(SNAP); }
+      else {
+        document.getElementById("ck-price").textContent = "--";
+        document.getElementById("ck-live").textContent = "数据源暂不可用";
+      }
+    });
+  }
+  if (SNAP) { SNAP.live = false; render(SNAP); }
+  fetchLive();
+})();
+
+/* ============ 会员分布 · 实时买入地图（演示） ============ */
+(function () {
+  "use strict";
+  var map = document.getElementById("mem-world");
+  if (!map) return;
+  /* ---- 简化世界地图（点阵大陆） ---- */
+  var LAND = [
+    [4,2,7,2],[24,2,27,2],[3,3,10,3],[23,3,28,3],[2,4,12,4],[22,4,29,4],[36,4,38,4],[40,4,58,4],
+    [1,5,13,5],[21,5,30,5],[32,5,33,5],[34,5,38,5],[38,5,60,5],[1,6,14,6],[21,6,29,6],[33,6,38,6],[39,6,60,6],
+    [1,7,15,7],[21,7,28,7],[33,7,40,7],[40,7,61,7],[2,8,15,8],[33,8,40,8],[40,8,61,8],[3,9,14,9],[32,9,42,9],[39,9,60,9],
+    [4,10,13,10],[31,10,42,10],[39,10,59,10],[5,11,12,11],[31,11,42,11],[39,11,58,11],[6,12,11,12],[31,12,41,12],[39,12,57,12],[43,12,45,12],
+    [8,13,10,13],[31,13,40,13],[39,13,56,13],[44,13,46,13],[10,14,11,14],[31,14,39,14],[40,14,54,14],[46,14,50,14],[11,15,17,15],[31,15,38,15],[41,15,51,15],
+    [12,16,18,16],[31,16,37,16],[42,16,49,16],[46,16,53,16],[12,17,17,17],[31,17,36,17],[46,17,53,17],[12,18,16,18],[31,18,35,18],[49,18,52,18],
+    [12,19,15,19],[32,19,34,19],[50,19,59,19],[12,20,14,20],[32,20,33,20],[50,20,60,20],[12,21,13,21],[50,21,61,21],[12,22,13,22],[51,22,61,22],
+    [12,23,12,23],[52,23,61,23],[12,24,12,24],[52,24,60,24],[12,25,12,25],[53,25,59,25],[11,26,12,26],[53,26,58,26],[11,27,12,27],[54,27,57,27],
+    [11,28,11,28],[11,29,11,29]
+  ];
+  var GW = 66, GH = 30;
+  map.style.height = Math.round(map.clientWidth * GH / GW) + "px";
+  for (var r = 0; r < LAND.length; r++) {
+    var a = LAND[r];
+    for (var x = a[0]; x <= a[2]; x++) for (var y = a[1]; y <= a[3]; y++) {
+      var d = document.createElement("div");
+      d.className = "mem-dot";
+      d.style.left = (x / GW * 100) + "%";
+      d.style.top = (y / GH * 100) + "%";
+      map.appendChild(d);
+    }
+  }
+  /* ---- 地区锚点（格坐标 + 权重 + 城市池） ---- */
+  var REGIONS = [
+    { n: "中国", x: 45, y: 8, w: 36, cities: ["广东·深圳","浙江·杭州","上海","北京","四川·成都","福建·厦门","山东·青岛","湖南·长沙","江苏·南京","湖北·武汉"] },
+    { n: "香港", x: 45, y: 10, w: 3, cities: ["香港·九龙","香港·中环"] },
+    { n: "台湾", x: 60, y: 10, w: 2, cities: ["台湾·台北","台湾·高雄"] },
+    { n: "美国", x: 9, y: 8, w: 5, cities: ["美国·纽约","美国·洛杉矶","美国·旧金山"] },
+    { n: "日本", x: 61, y: 8, w: 4, cities: ["日本·东京","日本·大阪"] },
+    { n: "韩国", x: 59, y: 7, w: 3, cities: ["韩国·首尔"] },
+    { n: "越南", x: 47, y: 13, w: 3, cities: ["越南·胡志明","越南·河内"] },
+    { n: "泰国", x: 46, y: 14, w: 3, cities: ["泰国·曼谷"] },
+    { n: "马来西亚", x: 48, y: 15, w: 3, cities: ["马来西亚·吉隆坡"] },
+    { n: "新加坡", x: 47, y: 16, w: 3, cities: ["新加坡·滨海湾"] },
+    { n: "印尼", x: 49, y: 17, w: 3, cities: ["印尼·雅加达"] },
+    { n: "印度", x: 43, y: 12, w: 2, cities: ["印度·孟买","印度·新德里"] },
+    { n: "俄罗斯", x: 46, y: 5, w: 2, cities: ["俄罗斯·莫斯科"] },
+    { n: "英国", x: 32, y: 5, w: 2, cities: ["英国·伦敦"] },
+    { n: "德国", x: 35, y: 6, w: 2, cities: ["德国·柏林"] },
+    { n: "法国", x: 34, y: 6, w: 2, cities: ["法国·巴黎"] },
+    { n: "土耳其", x: 37, y: 8, w: 2, cities: ["土耳其·伊斯坦布尔"] },
+    { n: "阿联酋", x: 41, y: 9, w: 2, cities: ["阿联酋·迪拜"] },
+    { n: "巴西", x: 15, y: 18, w: 2, cities: ["巴西·圣保罗"] },
+    { n: "阿根廷", x: 14, y: 24, w: 1, cities: ["阿根廷·布宜诺斯"] },
+    { n: "墨西哥", x: 10, y: 11, w: 1, cities: ["墨西哥·墨西哥城"] },
+    { n: "加拿大", x: 7, y: 5, w: 1, cities: ["加拿大·多伦多"] },
+    { n: "澳大利亚", x: 55, y: 21, w: 1, cities: ["澳大利亚·悉尼"] }
+  ];
+  var totW = 0; REGIONS.forEach(function (r) { totW += r.w; });
+  function pickRegion() {
+    var t = Math.random() * totW;
+    for (var i = 0; i < REGIONS.length; i++) { t -= REGIONS[i].w; if (t <= 0) return REGIONS[i]; }
+    return REGIONS[0];
+  }
+  function flashBuy() {
+    var reg = pickRegion();
+    var big = Math.random() < 0.1;
+    var amt = big ? Math.round(1000 + Math.random() * 4000) : Math.round(20 + Math.random() * 480);
+    var city = reg.cities[Math.floor(Math.random() * reg.cities.length)];
+    /* 光点 */
+    var px = reg.x / GW * 100, py = reg.y / GH * 100;
+    var b = document.createElement("div");
+    b.className = "mem-buy";
+    b.style.left = px + "%"; b.style.top = py + "%";
+    b.style.width = (big ? 9 : 6) + "px"; b.style.height = (big ? 9 : 6) + "px";
+    map.appendChild(b);
+    var p = document.createElement("div");
+    p.className = "mem-ping";
+    p.style.left = px + "%"; p.style.top = py + "%";
+    map.appendChild(p);
+    var lb = document.createElement("div");
+    lb.className = "mem-label";
+    lb.style.left = px + "%"; lb.style.top = py + "%";
+    lb.textContent = "+" + amt + " USDT";
+    map.appendChild(lb);
+    setTimeout(function () { b.remove(); p.remove(); lb.remove(); }, 1700);
+    /* 直播流 */
+    var feed = document.getElementById("m-feed");
+    var item = document.createElement("div");
+    item.className = "mfeed";
+    item.innerHTML = "<span>" + reg.n + " · " + city + "</span><b>+" + amt + " USDT</b><span class='t'>刚刚</span>";
+    feed.insertBefore(item, feed.firstChild);
+    while (feed.children.length > 6) feed.removeChild(feed.lastChild);
+  }
+  flashBuy(); flashBuy();
+  setInterval(flashBuy, 2600);
+
+  /* ============ 50 个社区 · 人数占比 ============ */
+  var TOTAL_MEMBERS = 12800;
+  var comms = [];
+  var gcNames = ["逐日", "星海", "燎原", "破晓"];
+  var pgNames = ["昆仑", "蓬莱", "不周", "扶桑", "归墟", "瑶池"];
+  var otherPool = ["星火","鲸落","北辰","南冥","长歌","无界","拾光","麦田","极昼","鲸跃","凌霄","青鸾","沧浪",
+    "墨白","风起","山海","云图","深空","孤岛","灯塔","脉冲","赤道","极光","雨林","荒漠","雪原","峡谷","潮汐","银河",
+    "望舒","天枢","荧惑","太乙","玄鸟","烛龙","白泽","麒麟","毕方","重明","应龙","九尾","梧桐","星槎","扶摇","逍遥","无为","大衍","河图"];
+  gcNames.forEach(function (n, i) { comms.push({ name: "共创社区·" + n, type: "gc", share: [7, 5.5, 4.5, 3][i] }); });
+  pgNames.forEach(function (n, i) { comms.push({ name: "盘古社区·" + n, type: "pg", share: [7, 6, 5.5, 4.5, 4, 3][i] }); });
+  var pool = otherPool.slice().sort(function () { return Math.random() - 0.5; }).slice(0, 40);
+  var weights = pool.map(function () { return Math.random() + 0.3; });
+  var wsum = weights.reduce(function (a, b) { return a + b; }, 0);
+  pool.forEach(function (n, i) { comms.push({ name: n + "社区", type: "ot", share: +(weights[i] / wsum * 50).toFixed(3) }); });
+  comms.sort(function (a, b) { return b.share - a.share; });
+  var shown = 12;
+  function renderComms() {
+    var box = document.getElementById("comm-list");
+    box.innerHTML = "";
+    comms.slice(0, shown).forEach(function (c) {
+      var row = document.createElement("div");
+      row.className = "comm " + c.type;
+      var tag = c.type === "gc" ? "共创" : c.type === "pg" ? "盘古" : "其他";
+      var tc = c.type === "gc" ? "gc" : c.type === "pg" ? "pg" : "ot";
+      var pct = (Math.round(c.share * 100) / 100) + "%";
+      var num = Math.round(c.share / 100 * TOTAL_MEMBERS);
+      row.innerHTML = '<span class="c-tag ' + tc + '">' + tag + '</span>' +
+        '<span class="c-name">' + c.name + '</span>' +
+        '<span class="c-bar"><i style="width:' + (c.share / 11 * 100) + '%"></i></span>' +
+        '<span class="c-pct">' + pct + '</span>' +
+        '<span class="c-num">' + num.toLocaleString() + "人</span>";
+      box.appendChild(row);
+    });
+    document.getElementById("comm-more").textContent = shown < comms.length ? "展开全部 " + comms.length + " 个社区" : "收起";
+  }
+  document.getElementById("comm-more").addEventListener("click", function () {
+    shown = shown < comms.length ? comms.length : 12;
+    renderComms();
+    var el = document.getElementById("comm-list");
+    if (shown === comms.length) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  renderComms();
+})();
+
+</script>
+</body>
+</html>
